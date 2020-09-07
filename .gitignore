@@ -2,3 +2,5 @@
 /build
 /developer-bridge-master
 /node_modules
+
+*.iml

@@ -1,0 +1,37 @@
+<svg id="root">
+  <rect id="background" width="100%" height="100%" x="0" y="0"/>
+  <text id="heartDisplay">--</text>
+  <text id="dateDisplay"></text>
+  <text id="clockFace">--</text>
+
+  <section id="amContainer" class="activityContainer">
+    <arc id="amArc"/>
+    <image id="amIcon" href="icons/am.png"/>
+    <text id="amText" class="activityText" text-length="3">--</text>
+  </section>
+
+  <section id="cbContainer" class="activityContainer">
+    <arc id="cbArc"/>
+    <image id="cbIcon" href="icons/cals.png"/>
+    <text id="cbText" class="activityText" text-length="4">--</text>
+  </section>  
+  
+  <section id="fcContainer" class="activityContainer">
+    <arc id="fcArc"/>
+    <image id="fcIcon" href="icons/floors.png"/>
+    <text id="fcText" class="activityText" text-length="3">--</text>
+  </section>
+  
+  <section id="dtContainer" class="activityContainer">
+    <arc id="dtArc"/>
+    <image id="dtIcon" href="icons/dist.png"/>
+    <text id="dtText" class="activityText" text-length="5">--</text>
+  </section>
+  
+  <section id="stContainer" class="activityContainer">
+    <arc id="stArc"/>
+    <image id="stIcon" href="icons/steps.png"/>
+    <text id="stText" class="activityText" text-length="5">--</text>
+  </section>
+  
+</svg>

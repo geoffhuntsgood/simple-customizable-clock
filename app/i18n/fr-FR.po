@@ -1,0 +1,162 @@
+msgid "Active Minutes"
+msgstr "Les minutes actives"
+
+msgid "Activity"
+msgstr "Activité"
+
+msgid "calorie"
+msgstr "CALORIE"
+
+msgid "Calorie count"
+msgstr "Nombre de calories"
+
+msgid "Calories burned"
+msgstr "Calories brûlées"
+
+msgid "challenge"
+msgstr "défi"
+
+msgid "Clock + Display"
+msgstr "Horloge et affichage"
+
+msgid "clock face"
+msgstr "affichage de l'horloge"
+
+msgid "daily goal"
+msgstr "Objectif quotidien"
+
+msgid "daily stats"
+msgstr "Statistiques quotidiennes"
+
+msgid "daily target"
+msgstr "objectif quotidien"
+
+msgid "Distance"
+msgstr "Distance"
+
+msgid "exercise mode"
+msgstr "Mode exercice"
+
+msgid "exercise tracking"
+msgstr "Suivi des entraînements"
+
+msgid "Floors"
+msgstr "Étages gravis"
+
+msgid "Floors climbed"
+msgstr "Étages gravis"
+
+msgid "Get more steps!"
+msgstr "Vous devez marcher un peu plus !"
+
+msgid "Goal"
+msgstr "Objectif"
+
+msgid "Heart rate"
+msgstr "Fréquence cardiaque"
+
+msgid "Resting Heart Rate"
+msgstr "Fréquence cardiaque au repos"
+
+msgid "stats"
+msgstr "statistiques"
+
+msgid "Steps"
+msgstr "Pas"
+
+msgid "day_month_separator"
+msgstr ""
+
+msgid "month_short_0"
+msgstr "janv."
+
+msgid "month_short_1"
+msgstr "févr."
+
+msgid "month_short_2"
+msgstr "mars"
+
+msgid "month_short_3"
+msgstr "avr."
+
+msgid "month_short_4"
+msgstr "mai"
+
+msgid "month_short_5"
+msgstr "juin"
+
+msgid "month_short_6"
+msgstr "juill."
+
+msgid "month_short_7"
+msgstr "août"
+
+msgid "month_short_8"
+msgstr "sept."
+
+msgid "month_short_9"
+msgstr "oct."
+
+msgid "month_short_10"
+msgstr "nov."
+
+msgid "month_short_11"
+msgstr "déc."
+
+msgid "month_long_0"
+msgstr "janvier"
+
+msgid "month_long_1"
+msgstr "février"
+
+msgid "month_long_2"
+msgstr "mars"
+
+msgid "month_long_3"
+msgstr "avril"
+
+msgid "month_long_4"
+msgstr "mai"
+
+msgid "month_long_5"
+msgstr "juin"
+
+msgid "month_long_6"
+msgstr "juillet"
+
+msgid "month_long_7"
+msgstr "aout"
+
+msgid "month_long_8"
+msgstr "septembre"
+
+msgid "month_long_9"
+msgstr "octobre"
+
+msgid "month_long_10"
+msgstr "novembre"
+
+msgid "month_long_11"
+msgstr "décembre"
+
+msgid "day_short_0"
+msgstr "Dim."
+
+msgid "day_short_1"
+msgstr "Lun."
+
+msgid "day_short_2"
+msgstr "Mar."
+
+msgid "day_short_3"
+msgstr "Mercr."
+
+msgid "day_short_4"
+msgstr "Jeu."
+
+msgid "day_short_5"
+msgstr "Ven."
+
+msgid "day_short_6"
+msgstr "Sam."
+

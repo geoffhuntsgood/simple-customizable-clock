@@ -1,0 +1,21 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "newLine": "LF",
+    "noErrorTruncation": true,
+    "sourceMap": true,
+    "strict": true
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "node_modules/fitbit-sdk-types/types/companion",
+    "node_modules/fitbit-sdk-types/types/device",
+    "node_modules/fitbit-sdk-types/types/device/document",
+    "node_modules/fitbit-sdk-types/types/settings",
+    "node_modules/fitbit-sdk-types/types/shared"
+  ]
+}
