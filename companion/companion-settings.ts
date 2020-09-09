@@ -1,6 +1,6 @@
 import * as messaging from 'messaging';
 import { settingsStorage } from 'settings';
-import StorageData from './storage-data';
+import StorageData from '../types/storage-data';
 
 export function initialize() {
   // Event fires when a setting is changed

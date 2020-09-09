@@ -4,34 +4,33 @@
   <text id="dateDisplay"></text>
   <text id="clockFace">--</text>
 
-  <section id="amContainer" class="activityContainer">
-    <arc id="amArc"/>
-    <image id="amIcon" href="icons/am.png"/>
-    <text id="amText" class="activityText" text-length="3">--</text>
+  <section class="activityContainer">
+    <arc id="activeMinutesArc"/>
+    <image id="activeMinutesIcon" href="icons/am.png"/>
+    <text id="activeMinutesText" class="activityText" text-length="3">--</text>
   </section>
 
-  <section id="cbContainer" class="activityContainer">
-    <arc id="cbArc"/>
-    <image id="cbIcon" href="icons/cals.png"/>
-    <text id="cbText" class="activityText" text-length="4">--</text>
+  <section class="activityContainer">
+    <arc id="caloriesArc"/>
+    <image id="caloriesIcon" href="icons/cals.png"/>
+    <text id="caloriesText" class="activityText" text-length="4">--</text>
   </section>  
   
-  <section id="fcContainer" class="activityContainer">
-    <arc id="fcArc"/>
-    <image id="fcIcon" href="icons/floors.png"/>
-    <text id="fcText" class="activityText" text-length="3">--</text>
+  <section class="activityContainer">
+    <arc id="elevationGainArc"/>
+    <image id="elevationGainIcon" href="icons/floors.png"/>
+    <text id="elevationGainText" class="activityText" text-length="3">--</text>
   </section>
   
-  <section id="dtContainer" class="activityContainer">
-    <arc id="dtArc"/>
-    <image id="dtIcon" href="icons/dist.png"/>
-    <text id="dtText" class="activityText" text-length="5">--</text>
+  <section class="activityContainer">
+    <arc id="distanceArc"/>
+    <image id="distanceIcon" href="icons/dist.png"/>
+    <text id="distanceText" class="activityText" text-length="5">--</text>
   </section>
   
-  <section id="stContainer" class="activityContainer">
-    <arc id="stArc"/>
-    <image id="stIcon" href="icons/steps.png"/>
-    <text id="stText" class="activityText" text-length="5">--</text>
+  <section class="activityContainer">
+    <arc id="stepsArc"/>
+    <image id="stepsIcon" href="icons/steps.png"/>
+    <text id="stepsText" class="activityText" text-length="5">--</text>
   </section>
-  
 </svg>

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const colorSet = [
   {color: 'red'},
   {color: 'crimson'},
@@ -27,23 +29,21 @@ const options = [
 ];
 
 registerSettingsPage(() => {
-  return <Page><>
-    <Section title={<>'Display User Activities'</>}><>
-      <Toggle settingsKey={'activeMinutesShow'} label={<>'Active Minutes'</>}/>
-      <Toggle settingsKey={'caloriesShow'} label={<>'Calories Burned'</>}/>
-      <Toggle settingsKey={'distanceShow'} label={<>'Distance Traveled'</>}/>
-      <Toggle settingsKey={'elevationGainShow'} label={<>'Floors Climbed'</>}/>
-      <Toggle settingsKey={'stepsShow'} label={<>'Steps Taken'</>}/></>
+  return <Page>
+    <Section title={<Text>Display User Activities</Text>}>
+      <Toggle settingsKey={'activeMinutesShow'} label={<Text>Active Minutes</Text>}/>
+      <Toggle settingsKey={'caloriesShow'} label={<Text>Calories Burned</Text>}/>
+      <Toggle settingsKey={'distanceShow'} label={<Text>Distance Traveled</Text>}/>
+      <Toggle settingsKey={'elevationGainShow'} label={<Text>Floors Climbed</Text>}/>
+      <Toggle settingsKey={'stepsShow'} label={<Text>Steps Taken</Text>}/>
     </Section>
-
     {options.map(([title, settingsKey]) =>
-        <Section title={<>title</>}>
+        <Section title={title}>
           <ColorSelect
               centered={true}
               settingsKey={settingsKey}
               colors={colorSet}/>
         </Section>
     )}
-  </>
   </Page>;
 });

@@ -1,6 +1,7 @@
 import { locale } from 'user-settings';
 import { gettext } from 'i18n';
 
+// Get the expected date format based on locale
 export default function localizedDate(date: Date): string {
   const monthNum = date.getMonth();
   const monthName = gettext(`month_short_${monthNum}`);
