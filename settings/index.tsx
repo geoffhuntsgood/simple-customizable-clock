@@ -21,6 +21,8 @@ const options = [
   ['Background Color', 'backgroundColor'],
   ['Time Color', 'timeColor'],
   ['Date Color', 'dateColor'],
+  ['Battery Charge Color', 'batteryColor'],
+  ['Weather Color', 'weatherColor'],
   ['Active Minutes Color', 'activeMinutesColor'],
   ['Calories Burned Color', 'caloriesColor'],
   ['Distance Traveled Color', 'distanceColor'],

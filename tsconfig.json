@@ -18,6 +18,7 @@
     "node_modules/fitbit-sdk-types/types/device",
     "node_modules/fitbit-sdk-types/types/device/document",
     "node_modules/fitbit-sdk-types/types/settings",
-    "node_modules/fitbit-sdk-types/types/shared"
+    "node_modules/fitbit-sdk-types/types/shared",
+    "node_modules/fitbit-weather-types/types"
   ]
 }

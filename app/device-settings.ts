@@ -29,6 +29,12 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
     case 'timeColor':
       settings.timeColor = data.value as string;
       break;
+    case 'batteryColor':
+      settings.batteryColor = data.value as string;
+      break;
+    case 'weatherColor':
+      settings.weatherColor = data.value as string;
+      break;
     case 'activeMinutesColor':
       settings.activeMinutes.color = data.value as string;
       break;
@@ -58,6 +64,9 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
       break;
     case 'stepsShow':
       settings.steps.visible = data.value as boolean;
+      break;
+    case undefined:
+      // Non-setting message, most likely weather data
       break;
     default:
       console.warn(`Incorrect setting field ${data.key} passed via StorageData.`);

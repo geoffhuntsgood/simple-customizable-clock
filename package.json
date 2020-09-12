@@ -12,6 +12,8 @@
     "requestedPermissions": [
       "access_activity",
       "access_heart_rate",
+      "access_internet",
+      "access_location",
       "access_user_profile"
     ],
     "buildTargets": [
@@ -31,7 +33,9 @@
     "@fitbit/sdk": "^4.1.0",
     "@fitbit/sdk-cli": "^1.7.3",
     "@types/node": "^14.6.4",
-    "fitbit-sdk-types": "^4.3.9"
+    "fitbit-sdk-types": "^4.3.9",
+    "fitbit-weather": "^0.2.2",
+    "fitbit-weather-types": "0.0.3"
   },
   "scripts": {
     "build": "npx fitbit-build"

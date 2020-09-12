@@ -1,36 +1,39 @@
 <svg id="root">
-  <rect id="background" width="100%" height="100%" x="0" y="0"/>
+  <rect id="background"/>
+  <text id="batteryDisplay">--</text>
+  <image id="weatherIcon"/>
+  <text id="weatherDisplay">--</text>
   <text id="heartDisplay">--</text>
   <text id="dateDisplay"></text>
   <text id="clockFace">--</text>
 
   <section class="activityContainer">
     <arc id="activeMinutesArc"/>
-    <image id="activeMinutesIcon" href="icons/am.png"/>
+    <image id="activeMinutesIcon" href="icons/activities/am.png"/>
     <text id="activeMinutesText" class="activityText" text-length="3">--</text>
   </section>
 
   <section class="activityContainer">
     <arc id="caloriesArc"/>
-    <image id="caloriesIcon" href="icons/cals.png"/>
+    <image id="caloriesIcon" href="icons/activities/cals.png"/>
     <text id="caloriesText" class="activityText" text-length="4">--</text>
   </section>  
   
   <section class="activityContainer">
     <arc id="elevationGainArc"/>
-    <image id="elevationGainIcon" href="icons/floors.png"/>
+    <image id="elevationGainIcon" href="icons/activities/floors.png"/>
     <text id="elevationGainText" class="activityText" text-length="3">--</text>
   </section>
   
   <section class="activityContainer">
     <arc id="distanceArc"/>
-    <image id="distanceIcon" href="icons/dist.png"/>
+    <image id="distanceIcon" href="icons/activities/dist.png"/>
     <text id="distanceText" class="activityText" text-length="5">--</text>
   </section>
   
   <section class="activityContainer">
     <arc id="stepsArc"/>
-    <image id="stepsIcon" href="icons/steps.png"/>
+    <image id="stepsIcon" href="icons/activities/steps.png"/>
     <text id="stepsText" class="activityText" text-length="5">--</text>
   </section>
 </svg>
