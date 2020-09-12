@@ -133,7 +133,6 @@ function initializeWeather() {
       .then((result: weather.Result) => {
         weatherDisplay.text = units.temperature === 'C' ?
             `${Math.floor(result.temperatureC)}&deg;` : `${Math.floor(result.temperatureF)}&deg;`;
-        console.log(JSON.stringify(result.conditionCode));
         switch (result.conditionCode) {
           case 0:
             // Clear skies
@@ -175,8 +174,6 @@ function initializeWeather() {
             // Unknown, display clear skies
             weatherIcon.href = result.isDay ? 'icons/weather/sun.png' : 'icons/weather/moon-stars.png';
         }
-        console.log(JSON.stringify(weatherIcon.href));
-        console.log(JSON.stringify(weatherIcon.style.fill));
       })
       .catch(error => {
         console.log(JSON.stringify(error));
