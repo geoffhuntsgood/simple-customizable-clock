@@ -23,7 +23,7 @@ const options = [
   ['Date Color', 'dateColor'],
   ['Battery Charge Color', 'batteryColor'],
   ['Weather Color', 'weatherColor'],
-  ['Active Minutes Color', 'activeMinutesColor'],
+  ['Active Minutes Color', 'activeZoneMinutesColor'],
   ['Calories Burned Color', 'caloriesColor'],
   ['Distance Traveled Color', 'distanceColor'],
   ['Floors Climbed Color', 'elevationGainColor'],
@@ -33,7 +33,7 @@ const options = [
 registerSettingsPage(() => {
   return <Page>
     <Section title={<Text>Display User Activities</Text>}>
-      <Toggle settingsKey={'activeMinutesShow'} label={<Text>Active Minutes</Text>}/>
+      <Toggle settingsKey={'activeZoneMinutesShow'} label={<Text>Active Minutes</Text>}/>
       <Toggle settingsKey={'caloriesShow'} label={<Text>Calories Burned</Text>}/>
       <Toggle settingsKey={'distanceShow'} label={<Text>Distance Traveled</Text>}/>
       <Toggle settingsKey={'elevationGainShow'} label={<Text>Floors Climbed</Text>}/>

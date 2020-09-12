@@ -1,16 +1,18 @@
 <svg id="root">
   <rect id="background"/>
-  <text id="batteryDisplay">--</text>
-  <image id="weatherIcon"/>
-  <text id="weatherDisplay">--</text>
-  <text id="heartDisplay">--</text>
+  <section class="topRow">
+    <text id="batteryDisplay">--</text>
+    <image id="weatherIcon"/>
+    <text id="weatherDisplay">--</text>
+    <text id="heartDisplay">--</text>
+  </section>
   <text id="dateDisplay"></text>
   <text id="clockFace">--</text>
 
   <section class="activityContainer">
-    <arc id="activeMinutesArc"/>
-    <image id="activeMinutesIcon" href="icons/activities/am.png"/>
-    <text id="activeMinutesText" class="activityText" text-length="3">--</text>
+    <arc id="activeZoneMinutesArc"/>
+    <image id="activeZoneMinutesIcon" href="icons/activities/am.png"/>
+    <text id="activeZoneMinutesText" class="activityText" text-length="3">--</text>
   </section>
 
   <section class="activityContainer">

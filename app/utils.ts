@@ -1,6 +1,6 @@
 import document from 'document';
 import {units} from 'user-settings';
-import {goals, today} from 'user-activity';
+import {ActiveZoneMinutes, goals, today} from 'user-activity';
 import {ActivityName} from '../types/activity-name';
 
 // Add zero in front of numbers < 10
@@ -11,9 +11,21 @@ export function zeroPad(i: number): string {
 // Sets progress for a user activity's text and arc elements.
 export function setActivityProgress(text: TextElement, arc: ArcElement, act: string): void {
   // @ts-ignore
-  let progress: number = today.adjusted[`${act}`], goal: number = goals[`${act}`];
-  text.text = act === ActivityName.distance ? `${getDistanceText(progress)}` : `${progress}`;
-  arc.sweepAngle = getAngle(act, progress, goal);
+  let progress: ActiveZoneMinutes | number = today.adjusted[`${act}`];
+  // @ts-ignore
+  let goal: ActiveZoneMinutes | number = goals[`${act}`];
+  if (typeof progress === 'number' && typeof goal === 'number') {
+    text.text = act === ActivityName.distance ? `${getDistanceText(progress)}` : `${progress}`;
+    arc.sweepAngle = getAngle(act, progress, goal);
+  } else {
+    // I miss active minutes...
+    progress = progress as ActiveZoneMinutes;
+    goal = goal as ActiveZoneMinutes;
+    text.text = `${progress.total}`;
+    arc.sweepAngle = getAngle(act, progress.total, goal.total);
+  }
+
+
 }
 
 // Removes an activity's objects from the clock face.

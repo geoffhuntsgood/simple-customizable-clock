@@ -15,15 +15,15 @@ export default class SettingsData {
   batteryColor: string = 'white';
   weatherColor: string = 'white';
 
-  activeMinutes: ActivityValues;
+  activeZoneMinutes: ActivityValues;
   calories: ActivityValues;
   distance: ActivityValues;
   elevationGain: ActivityValues;
   steps: ActivityValues;
 
   constructor() {
-    this.activeMinutes =
-        new ActivityValues(ActivityName.activeMinutes, SettingsData.getGoal(ActivityName.activeMinutes));
+    this.activeZoneMinutes =
+        new ActivityValues(ActivityName.activeZoneMinutes, SettingsData.getGoal(ActivityName.activeZoneMinutes));
     this.calories =
         new ActivityValues(ActivityName.calories, SettingsData.getGoal(ActivityName.calories));
     this.distance =
@@ -38,8 +38,8 @@ export default class SettingsData {
   private static getGoal(activityName: ActivityName): number {
     if (goals !== undefined) {
       switch (activityName) {
-        case (ActivityName.activeMinutes):
-          return goals.activeMinutes !== undefined ? goals.activeMinutes : 30;
+        case (ActivityName.activeZoneMinutes):
+          return goals.activeZoneMinutes !== undefined ? goals.activeZoneMinutes.total : 30;
         case (ActivityName.calories):
           return goals.calories !== undefined ? goals.calories : 2000;
         case (ActivityName.distance):

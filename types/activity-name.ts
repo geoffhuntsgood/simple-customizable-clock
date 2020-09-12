@@ -1,6 +1,6 @@
 // Enum representing names of user activities.
 export enum ActivityName {
-  activeMinutes = 'activeMinutes',
+  activeZoneMinutes = 'activeZoneMinutes',
   calories = 'calories',
   distance = 'distance',
   elevationGain = 'elevationGain',

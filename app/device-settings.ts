@@ -35,8 +35,8 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
     case 'weatherColor':
       settings.weatherColor = data.value as string;
       break;
-    case 'activeMinutesColor':
-      settings.activeMinutes.color = data.value as string;
+    case 'activeZoneMinutesColor':
+      settings.activeZoneMinutes.color = data.value as string;
       break;
     case 'caloriesColor':
       settings.calories.color = data.value as string;
@@ -50,8 +50,8 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
     case 'stepsColor':
       settings.steps.color = data.value as string;
       break;
-    case 'activeMinutesShow':
-      settings.activeMinutes.visible = data.value as boolean;
+    case 'activeZoneMinutesShow':
+      settings.activeZoneMinutes.visible = data.value as boolean;
       break;
     case 'caloriesShow':
       settings.calories.visible = data.value as boolean;
