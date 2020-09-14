@@ -35,6 +35,9 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
     case 'weatherColor':
       settings.weatherColor = data.value as string;
       break;
+    case 'heartColor':
+      settings.heartColor = data.value as string;
+      break;
     case 'activeZoneMinutesColor':
       settings.activeZoneMinutes.color = data.value as string;
       break;

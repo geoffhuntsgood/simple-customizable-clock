@@ -13,6 +13,7 @@ export function initialize() {
   settingsStorage.onchange = (event: StorageChangeEvent) => {
     if (event.key && event.newValue) {
       if (event.oldValue !== event.newValue &&
+          event.newValue &&
           messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
         messaging.peerSocket.send(new StorageData(event.key, JSON.parse(event.newValue)));
       } else {

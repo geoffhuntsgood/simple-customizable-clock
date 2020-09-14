@@ -18,23 +18,26 @@ const background: RectElement = document.getElementById('background') as RectEle
 const batteryDisplay: TextElement = document.getElementById('batteryDisplay') as TextElement;
 const weatherDisplay: TextElement = document.getElementById('weatherDisplay') as TextElement;
 const weatherIcon: ImageElement = document.getElementById('weatherIcon') as ImageElement;
+const heartDisplay: TextElement = document.getElementById('heartDisplay') as TextElement;
 const dateDisplay: TextElement = document.getElementById('dateDisplay') as TextElement;
 const clockFace: TextElement = document.getElementById('clockFace') as TextElement;
 
 clock.granularity = 'seconds';
 clock.ontick = (event) => {
-  // Set time and date
-  let now = event.date;
-  dateDisplay.text = `${localizedDate(now)} ${now.getFullYear()}`;
-  let hours = preferences.clockDisplay === '12h' ? (now.getHours() % 12 || 12) : now.getHours();
-  clockFace.text = `${hours}:${util.zeroPad(now.getMinutes())}`;
+  if (dateDisplay) {
+    // Set time and date
+    let now = event.date;
+    dateDisplay.text = `${localizedDate(now)} ${now.getFullYear()}`;
+    let hours = preferences.clockDisplay === '12h' ? (now.getHours() % 12 || 12) : now.getHours();
+    clockFace.text = `${hours}:${util.zeroPad(now.getMinutes())}`;
 
-  // Set user activity progress
-  Object.keys(ActivityName).forEach((act: string) => {
-    let arc: ArcElement = document.getElementById(`${act}Arc`) as ArcElement;
-    let text: TextElement = document.getElementById(`${act}Text`) as TextElement;
-    util.setActivityProgress(text, arc, act);
-  });
+    // Set user activity progress
+    Object.keys(ActivityName).forEach((act: string) => {
+      let arc: ArcElement = document.getElementById(`${act}Arc`) as ArcElement;
+      let text: TextElement = document.getElementById(`${act}Text`) as TextElement;
+      util.setActivityProgress(text, arc, act);
+    });
+  }
 };
 
 // Initializes settings.
@@ -48,6 +51,7 @@ settings.initialize((data: SettingsData) => {
   batteryDisplay.style.fill = data.batteryColor;
   weatherDisplay.style.fill = data.weatherColor;
   weatherIcon.style.fill = data.weatherColor;
+  heartDisplay.style.fill = data.heartColor;
 
   // Set progress and color for visible elements and remove invisible elements
   Object.keys(ActivityName).forEach((act: string) => {
@@ -79,7 +83,6 @@ settings.initialize((data: SettingsData) => {
 if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
   if (HeartRateSensor) {
     const heartRateSensor = new HeartRateSensor();
-    const heartDisplay = document.getElementById('heartDisplay') as TextElement;
 
     heartRateSensor.onreading = () => {
       let rate = heartRateSensor.heartRate;

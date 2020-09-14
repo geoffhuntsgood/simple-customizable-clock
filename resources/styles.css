@@ -5,12 +5,15 @@
   y: 0;
 }
 
-#batteryDisplay {
+.topRow {
   font-size: 25;
+  y: 9%;
+}
+
+#batteryDisplay {
   text-length: 4;
   text-anchor: start;
   x: 10;
-  y: 10%;
 }
 
 #weatherIcon {
@@ -22,20 +25,15 @@
 }
 
 #weatherDisplay {
-  font-size: 25;
   text-length: 8;
   text-anchor: middle;
-  x: 52%;
-  y: 10%;
+  x: 54%;
 }
 
 #heartDisplay {
-  fill: red;
-  font-size: 25;
   text-length: 3;
   text-anchor: end;
   x: 290;
-  y: 10%;
 }
 
 #dateDisplay {

@@ -1,11 +1,9 @@
 <svg id="root">
   <rect id="background"/>
-  <section class="topRow">
-    <text id="batteryDisplay">--</text>
-    <image id="weatherIcon"/>
-    <text id="weatherDisplay">--</text>
-    <text id="heartDisplay">--</text>
-  </section>
+  <text id="batteryDisplay" class="topRow">--</text>
+  <image id="weatherIcon"/>
+  <text id="weatherDisplay" class="topRow">--</text>
+  <text id="heartDisplay" class="topRow">--</text>
   <text id="dateDisplay"></text>
   <text id="clockFace">--</text>
 

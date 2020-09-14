@@ -14,6 +14,7 @@ export default class SettingsData {
   timeColor: string = 'white';
   batteryColor: string = 'white';
   weatherColor: string = 'white';
+  heartColor: string = 'red';
 
   activeZoneMinutes: ActivityValues;
   calories: ActivityValues;
