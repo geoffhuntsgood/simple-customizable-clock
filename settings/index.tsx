@@ -39,6 +39,7 @@ registerSettingsPage(() => {
       <Toggle settingsKey={'distanceShow'} label={<Text>Distance Traveled</Text>}/>
       <Toggle settingsKey={'elevationGainShow'} label={<Text>Floors Climbed</Text>}/>
       <Toggle settingsKey={'stepsShow'} label={<Text>Steps Taken</Text>}/>
+      <Toggle settingsKey={'baseHeartRateShow'} label={<Text>Show Resting Heart Rate</Text>}/>
     </Section>
     {options.map(([title, settingsKey]) =>
         <Section title={title}>

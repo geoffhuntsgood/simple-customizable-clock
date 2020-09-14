@@ -6,6 +6,7 @@ import {display} from 'display';
 import document from 'document';
 import * as weather from 'fitbit-weather/app';
 import {HeartRateSensor} from 'heart-rate';
+import {user} from 'user-profile';
 import {preferences, units} from 'user-settings';
 
 import * as settings from './device-settings';
@@ -14,6 +15,7 @@ import * as util from './utils';
 import {ActivityName} from '../types/activity-name';
 import SettingsData from '../types/settings-data';
 
+// Elements that are updated in index.ts
 const background: RectElement = document.getElementById('background') as RectElement;
 const batteryDisplay: TextElement = document.getElementById('batteryDisplay') as TextElement;
 const weatherDisplay: TextElement = document.getElementById('weatherDisplay') as TextElement;
@@ -22,6 +24,10 @@ const heartDisplay: TextElement = document.getElementById('heartDisplay') as Tex
 const dateDisplay: TextElement = document.getElementById('dateDisplay') as TextElement;
 const clockFace: TextElement = document.getElementById('clockFace') as TextElement;
 
+// Toggle base heart rate display
+let baseHeartRateShow = false;
+
+// Updates time, date and activity progress.
 clock.granularity = 'seconds';
 clock.ontick = (event) => {
   if (dateDisplay) {
@@ -52,6 +58,7 @@ settings.initialize((data: SettingsData) => {
   weatherDisplay.style.fill = data.weatherColor;
   weatherIcon.style.fill = data.weatherColor;
   heartDisplay.style.fill = data.heartColor;
+  baseHeartRateShow = data.baseHeartRateShow;
 
   // Set progress and color for visible elements and remove invisible elements
   Object.keys(ActivityName).forEach((act: string) => {
@@ -85,8 +92,13 @@ if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
     const heartRateSensor = new HeartRateSensor();
 
     heartRateSensor.onreading = () => {
-      let rate = heartRateSensor.heartRate;
-      heartDisplay.text = heartRateSensor.activated && rate !== null ? `${rate}` : '---';
+      let rate = heartRateSensor.heartRate ? heartRateSensor.heartRate : 0;
+      if (baseHeartRateShow) {
+        let baseRate = user.restingHeartRate ? user.restingHeartRate : 0;
+        heartDisplay.text = heartRateSensor.activated ? `${rate}/${baseRate}` : `--/${baseRate}`;
+      } else {
+        heartDisplay.text = heartRateSensor.activated ? `${rate}` : '--';
+      }
     };
 
     // If display is off, deactivate heart readings
@@ -121,6 +133,7 @@ charger.onchange = () => {
   updateChargeDisplay();
 };
 
+// Displays battery charge level.
 function updateChargeDisplay() {
   let chargeLevel: number = battery.chargeLevel;
   batteryDisplay.text = `${chargeLevel}%`;

@@ -68,6 +68,9 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
     case 'stepsShow':
       settings.steps.visible = data.value as boolean;
       break;
+    case 'baseHeartRateShow':
+      settings.baseHeartRateShow = data.value as boolean;
+      break;
     case undefined:
       // Non-setting message, most likely weather data
       break;

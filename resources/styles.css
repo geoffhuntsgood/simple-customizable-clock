@@ -13,7 +13,7 @@
 #batteryDisplay {
   text-length: 4;
   text-anchor: start;
-  x: 10;
+  x: 5;
 }
 
 #weatherIcon {
@@ -31,9 +31,9 @@
 }
 
 #heartDisplay {
-  text-length: 3;
+  text-length: 7;
   text-anchor: end;
-  x: 290;
+  x: 295;
 }
 
 #dateDisplay {
@@ -54,30 +54,24 @@
 }
 
 .activityContainer {
-  height: 60;
-  width: 60;
+  height: 55;
+  width: 55;
 }
 
 .activityContainer arc {
-  x: 0;
-  y: 0;
   height: 100%;
   width: 100%;
   arc-width: 7;
-  start-angle: 0;
 }
 
 .activityContainer image {
-  x: 25%;
-  y: 25%;
   height: 50%;
-  width: 50%;
+  width: 47%;
   opacity: 1;
 }
 
 .activityText {
-  font-family: System-Light;
+  fill: white;
   font-size: 25;
   text-anchor: middle;
-  fill: white;
 }
