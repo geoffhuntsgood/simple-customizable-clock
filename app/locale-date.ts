@@ -1,5 +1,5 @@
-import { locale } from 'user-settings';
-import { gettext } from 'i18n';
+import {locale} from 'user-settings';
+import {gettext} from 'i18n';
 
 // Get the expected date format based on locale
 export default function localizedDate(date: Date): string {
@@ -20,7 +20,7 @@ export default function localizedDate(date: Date): string {
       return `${monthName}${dayMonthSeparator}${date.getDate()} (${dayName})`;
     case 'ko-kr':
       // 2/7 (목) = Month/date (day)
-      return `${date.getMonth()+1}${dayMonthSeparator}${date.getDate()} (${dayName})`;
+      return `${date.getMonth() + 1}${dayMonthSeparator}${date.getDate()} (${dayName})`;
     case 'en-us':
     case 'en-ca':
     case 'es-pa':

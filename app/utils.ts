@@ -24,8 +24,6 @@ export function setActivityProgress(text: TextElement, arc: ArcElement, act: str
     text.text = `${progress.total}`;
     arc.sweepAngle = getAngle(act, progress.total, goal.total);
   }
-
-
 }
 
 // Removes an activity's objects from the clock face.
