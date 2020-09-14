@@ -4,6 +4,12 @@
   "repository": "https://github.com/geoffhuntoon/simple-customizable-clock",
   "version": "1.0.0",
   "license": "MIT",
+  "keywords": [
+    "fitbit",
+    "fitbit-dev",
+    "sdk",
+    "typescript"
+  ],
   "fitbit": {
     "appUUID": "27b0d708-1cb0-4dc4-bd66-c99be893c96a",
     "appType": "clockface",
