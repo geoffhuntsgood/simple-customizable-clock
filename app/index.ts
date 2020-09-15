@@ -113,6 +113,11 @@ if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
         bodySensor.present && !heartRateSensor.activated ? heartRateSensor.start() : heartRateSensor.stop();
       };
       bodySensor.start();
+
+      display.onchange = () => {
+        display.on && !heartRateSensor.activated ? heartRateSensor.start() : heartRateSensor.stop();
+        display.on && !bodySensor.activated ? bodySensor.start() : bodySensor.stop();
+      };
     } else {
       console.warn("The device doesn't have a body presence sensor.");
     }
