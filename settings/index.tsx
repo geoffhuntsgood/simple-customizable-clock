@@ -24,7 +24,7 @@ const options = [
   ['Battery Charge Color', 'batteryColor'],
   ['Weather Color', 'weatherColor'],
   ['Heart Rate Color', 'heartColor'],
-  ['Active Minutes Color', 'activeZoneMinutesColor'],
+  ['Active Zone Minutes Color', 'activeZoneMinutesColor'],
   ['Calories Burned Color', 'caloriesColor'],
   ['Distance Traveled Color', 'distanceColor'],
   ['Floors Climbed Color', 'elevationGainColor'],

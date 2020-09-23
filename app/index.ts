@@ -1,24 +1,20 @@
 import {me as appbit} from 'appbit';
-import {battery, charger} from 'power';
 import {BodyPresenceSensor} from 'body-presence';
 import clock from 'clock';
 import {display} from 'display';
 import document from 'document';
 import * as weather from 'fitbit-weather/app';
 import {HeartRateSensor} from 'heart-rate';
+import {battery, charger} from 'power';
 import {user} from 'user-profile';
 import {preferences, units} from 'user-settings';
-
 import * as settings from './device-settings';
 import * as util from './utils';
 import {ActivityName} from '../types/activity-name';
 import SettingsData from '../types/settings-data';
 
 // Elements that are updated in index.ts
-const batteryDisplay: TextElement = document.getElementById('batteryDisplay') as TextElement;
-const weatherDisplay: TextElement = document.getElementById('weatherDisplay') as TextElement;
-const weatherIcon: ImageElement = document.getElementById('weatherIcon') as ImageElement;
-const heartDisplay: TextElement = document.getElementById('heartDisplay') as TextElement;
+const heartDisplay = document.getElementById('heartDisplay') as TextElement;
 const dateDisplay = document.getElementById('dateDisplay') as TextElement;
 const clockDisplay = document.getElementById('clockDisplay') as TextElement;
 
@@ -67,6 +63,7 @@ if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
     // If display is off or device is off-wrist, deactivate heart readings
     bodySensor.start();
     display.onchange = () => {
+      display.on ? bodySensor.start() : bodySensor.stop();
       display.on && bodySensor.present ? heartSensor.start() : heartSensor.stop();
     };
   } else {
@@ -88,6 +85,7 @@ charger.onchange = () => {
 
 // Displays battery charge level.
 function updateChargeDisplay(): void {
+  let batteryDisplay = document.getElementById('batteryDisplay') as TextElement;
   let chargeLevel: number = battery.chargeLevel;
   batteryDisplay.text = `${chargeLevel}%`;
   batteryDisplay.x = chargeLevel > 20 && !charger.connected ? 10 : 45;
@@ -136,60 +134,60 @@ function initializeSettings(data: SettingsData) {
     return data[`${act}`].visible === true;
   }));
 }
+
 settings.initialize(initializeSettings);
 
 // Fetches weather information and updates the display.
 // Uses a cached value if the cache is less than 15 minutes old.
 function initializeWeather() {
-  weather.fetch(1000 * 60 * 15)
-      .then((result: weather.Result) => {
-        weatherDisplay.text = units.temperature === 'C' ?
-            `${Math.floor(result.temperatureC)}&deg;` : `${Math.floor(result.temperatureF)}&deg;`;
-        switch (result.conditionCode) {
-          case 0:
-            // Clear skies
-            weatherIcon.href = result.isDay ? 'icons/weather/sun.png' : 'icons/weather/moon-stars.png';
-            break;
-          case 1:
-            // Few clouds
-            weatherIcon.href = result.isDay ? 'icons/weather/cloud-sun.png' : 'icons/weather/cloud-moon.png';
-            break;
-          case 2:
-            // Varying degrees of cloudiness
-            weatherIcon.href = 'icons/weather/cloud.png';
-            break;
-          case 3:
-            // Varying degrees of cloudiness
-            weatherIcon.href = 'icons/weather/cloud.png';
-            break;
-          case 4:
-            // Light showers
-            weatherIcon.href = 'icons/weather/cloud-drizzle.png';
-            break;
-          case 5:
-            // Rain
-            weatherIcon.href = 'icons/weather/cloud-rain.png';
-            break;
-          case 6:
-            // Thunderstorm
-            weatherIcon.href = 'icons/weather/cloud-lightning.png';
-            break;
-          case 7:
-            // Snow
-            weatherIcon.href = 'icons/weather/cloud-snow.png';
-            break;
-          case 8:
-            // Mist/fog
-            weatherIcon.href = 'icons/weather/fog.png';
-            break;
-          default:
-            // Unknown, display clear skies
-            weatherIcon.href = result.isDay ? 'icons/weather/sun.png' : 'icons/weather/moon-stars.png';
-        }
-      })
-      .catch(error => {
-        console.log(JSON.stringify(error));
-      });
+  weather.fetch(1000 * 60 * 15).then((result: weather.Result) => {
+    let weatherIcon = document.getElementById('weatherIcon') as ImageElement;
+    (document.getElementById('weatherDisplay') as TextElement).text = units.temperature === 'C' ?
+        `${Math.floor(result.temperatureC)}&deg;` : `${Math.floor(result.temperatureF)}&deg;`;
+    switch (result.conditionCode) {
+      case 0:
+        // Clear skies
+        weatherIcon.href = result.isDay ? 'icons/weather/sun.png' : 'icons/weather/moon-stars.png';
+        break;
+      case 1:
+        // Few clouds
+        weatherIcon.href = result.isDay ? 'icons/weather/cloud-sun.png' : 'icons/weather/cloud-moon.png';
+        break;
+      case 2:
+        // Varying degrees of cloudiness
+        weatherIcon.href = 'icons/weather/cloud.png';
+        break;
+      case 3:
+        // Varying degrees of cloudiness
+        weatherIcon.href = 'icons/weather/cloud.png';
+        break;
+      case 4:
+        // Light showers
+        weatherIcon.href = 'icons/weather/cloud-drizzle.png';
+        break;
+      case 5:
+        // Rain
+        weatherIcon.href = 'icons/weather/cloud-rain.png';
+        break;
+      case 6:
+        // Thunderstorm
+        weatherIcon.href = 'icons/weather/cloud-lightning.png';
+        break;
+      case 7:
+        // Snow
+        weatherIcon.href = 'icons/weather/cloud-snow.png';
+        break;
+      case 8:
+        // Mist/fog
+        weatherIcon.href = 'icons/weather/fog.png';
+        break;
+      default:
+        // Unknown, display clear skies
+        weatherIcon.href = result.isDay ? 'icons/weather/sun.png' : 'icons/weather/moon-stars.png';
+    }
+  }).catch(error => {
+    console.log(JSON.stringify(error));
+  });
 }
 
 initializeWeather();
