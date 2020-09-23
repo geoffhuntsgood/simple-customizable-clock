@@ -1,7 +1,9 @@
 import {me as appbit} from 'appbit';
 import {goals} from 'user-activity';
 import {user} from 'user-profile';
+
 import {ActivityName} from './activity-name';
+import ActivityValues from './activity-values';
 
 export default class SettingsData {
 
@@ -15,25 +17,24 @@ export default class SettingsData {
   heartColor: string = 'red';
   baseHeartRateShow: boolean = false;
 
-  activeZoneMinutesVisible: boolean = true;
-  activeZoneMinutesColor: string = 'white';
-  activeZoneMinutesGoal: number = SettingsData.getGoal(ActivityName.activeZoneMinutes);
+  activeZoneMinutes: ActivityValues;
+  calories: ActivityValues;
+  distance: ActivityValues;
+  elevationGain: ActivityValues;
+  steps: ActivityValues;
 
-  caloriesVisible: boolean = true;
-  caloriesColor: string = 'white';
-  caloriesGoal: number = SettingsData.getGoal(ActivityName.calories);
-
-  distanceVisible: boolean = true;
-  distanceColor: string = 'white';
-  distanceGoal: number = SettingsData.getGoal(ActivityName.distance);
-
-  elevationGainVisible: boolean = true;
-  elevationGainColor: string = 'white';
-  elevationGainGoal: number = SettingsData.getGoal(ActivityName.elevationGain);
-
-  stepsVisible: boolean = true;
-  stepsColor: string = 'white';
-  stepsGoal: number = SettingsData.getGoal(ActivityName.steps);
+  constructor() {
+    this.activeZoneMinutes =
+        new ActivityValues(ActivityName.activeZoneMinutes, SettingsData.getGoal(ActivityName.activeZoneMinutes));
+    this.calories =
+        new ActivityValues(ActivityName.calories, SettingsData.getGoal(ActivityName.calories));
+    this.distance =
+        new ActivityValues(ActivityName.distance, SettingsData.getGoal(ActivityName.distance));
+    this.elevationGain =
+        new ActivityValues(ActivityName.elevationGain, SettingsData.getGoal(ActivityName.elevationGain));
+    this.steps =
+        new ActivityValues(ActivityName.steps, SettingsData.getGoal(ActivityName.steps));
+  }
 
   // Set default goal for a user activity.
   private static getGoal(activityName: ActivityName): number {

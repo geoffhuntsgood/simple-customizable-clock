@@ -12,7 +12,6 @@ export function initializeSettings(data: SettingsData) {
   if (!data) {
     return;
   }
-
   baseHeartRate = data.baseHeartRateShow;
 
   (document.getElementById('background') as RectElement).style.fill = data.backgroundColor;

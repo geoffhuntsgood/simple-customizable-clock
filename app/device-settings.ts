@@ -5,7 +5,7 @@ import SettingsData from '../types/settings-data';
 import StorageData from '../types/storage-data';
 
 const SETTINGS_TYPE = 'cbor';
-const SETTINGS_FILE = 'settingsdata.cbor';
+const SETTINGS_FILE = 'settings.cbor';
 
 let settings: SettingsData;
 let onsettingschange: Function;
@@ -23,6 +23,36 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
   switch (data.key) {
     case undefined:
       // Non-setting message, most likely weather data
+      break;
+    case 'activeZoneMinutesColor':
+      settings.activeZoneMinutes.color = data.value as string;
+      break;
+    case 'activeZoneMinutesShow':
+      settings.activeZoneMinutes.visible = data.value as boolean;
+      break;
+    case 'caloriesColor':
+      settings.calories.color = data.value as string;
+      break;
+    case 'caloriesShow':
+      settings.calories.visible = data.value as boolean;
+      break;
+    case 'distanceColor':
+      settings.distance.color = data.value as string;
+      break;
+    case 'distanceShow':
+      settings.distance.visible = data.value as boolean;
+      break;
+    case 'elevationGainColor':
+      settings.elevationGain.color = data.value as string;
+      break;
+    case 'elevationGainShow':
+      settings.elevationGain.visible = data.value as boolean;
+      break;
+    case 'stepsColor':
+      settings.steps.color = data.value as string;
+      break;
+    case 'stepsShow':
+      settings.steps.visible = data.value as boolean;
       break;
     default:
       settings[data.key] = data.value;
