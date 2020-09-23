@@ -10,32 +10,29 @@ import {user} from 'user-profile';
 import {preferences, units} from 'user-settings';
 
 import * as settings from './device-settings';
-import localizedDate from './locale-date';
 import * as util from './utils';
 import {ActivityName} from '../types/activity-name';
-import SettingsData from '../types/settings-data';
+import {baseHeartRate, initializeSettings} from '../settings/app-settings';
 
 // Elements that are updated in index.ts
-const background: RectElement = document.getElementById('background') as RectElement;
 const batteryDisplay: TextElement = document.getElementById('batteryDisplay') as TextElement;
 const weatherDisplay: TextElement = document.getElementById('weatherDisplay') as TextElement;
 const weatherIcon: ImageElement = document.getElementById('weatherIcon') as ImageElement;
 const heartDisplay: TextElement = document.getElementById('heartDisplay') as TextElement;
-const dateDisplay: TextElement = document.getElementById('dateDisplay') as TextElement;
-const clockFace: TextElement = document.getElementById('clockFace') as TextElement;
-
-// Toggle base heart rate display
-let baseHeartRateShow = false;
+const dateDisplay = document.getElementById('dateDisplay') as TextElement;
+const clockDisplay = document.getElementById('clockDisplay') as TextElement;
 
 // Updates time, date and activity progress.
 clock.granularity = 'seconds';
 clock.ontick = (event) => {
-  if (dateDisplay) {
+  if (dateDisplay && clockDisplay) {
     // Set time and date
     let now = event.date;
-    dateDisplay.text = `${localizedDate(now)} ${now.getFullYear()}`;
+    let monthAndDay = util.getMonthAndWeekdayNames(now.getMonth(), now.getDay());
+    dateDisplay.text = `${monthAndDay[1]}, ${monthAndDay[0]} ${now.getDate()} ${now.getFullYear()}`;
+
     let hours = preferences.clockDisplay === '12h' ? (now.getHours() % 12 || 12) : now.getHours();
-    clockFace.text = `${hours}:${util.zeroPad(now.getMinutes())}`;
+    clockDisplay.text = `${hours}:${util.zeroPad(now.getMinutes())}`;
 
     // Set user activity progress
     Object.keys(ActivityName).forEach((act: string) => {
@@ -47,82 +44,33 @@ clock.ontick = (event) => {
 };
 
 // Initializes settings.
-settings.initialize((data: SettingsData) => {
-  if (!data) {
-    return;
-  }
-  background.style.fill = data.backgroundColor;
-  clockFace.style.fill = data.timeColor;
-  dateDisplay.style.fill = data.dateColor;
-  batteryDisplay.style.fill = data.batteryColor;
-  weatherDisplay.style.fill = data.weatherColor;
-  weatherIcon.style.fill = data.weatherColor;
-  heartDisplay.style.fill = data.heartColor;
-  baseHeartRateShow = data.baseHeartRateShow;
-
-  // Set progress and color for visible elements and remove invisible elements
-  Object.keys(ActivityName).forEach((act: string) => {
-    let arc: ArcElement = document.getElementById(`${act}Arc`) as ArcElement;
-    let icon: ImageElement = document.getElementById(`${act}Icon`) as ImageElement;
-    let text: TextElement = document.getElementById(`${act}Text`) as TextElement;
-
-    if (data[`${act}`].visible) {
-      // Set activity color
-      let activityColor: string = data[`${act}`].color;
-      arc.style.fill = activityColor;
-      icon.style.fill = activityColor;
-
-      // Set activity progress
-      util.setActivityProgress(text, arc, act);
-    } else {
-      // Remove activity from the clock face
-      util.removeActivity(arc, icon, text);
-    }
-  });
-
-  // Place visible elements
-  util.placeActivities(Object.keys(ActivityName).filter((act: string) => {
-    return data[`${act}`].visible === true;
-  }));
-});
+settings.initialize(initializeSettings);
 
 // Updates heart rate display.
 if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
-  if (HeartRateSensor) {
-    const heartRateSensor = new HeartRateSensor();
+  if (HeartRateSensor && BodyPresenceSensor) {
+    const heartSensor = new HeartRateSensor();
+    const bodySensor = new BodyPresenceSensor();
 
-    heartRateSensor.onreading = () => {
-      let rate = heartRateSensor.heartRate ? heartRateSensor.heartRate : 0;
-      if (baseHeartRateShow) {
-        let baseRate = user.restingHeartRate ? user.restingHeartRate : 0;
-        heartDisplay.text = heartRateSensor.activated ? `${rate}/${baseRate}` : `--/${baseRate}`;
+    // Display heart rate and/or base heart rate.
+    heartSensor.onreading = () => {
+      let rate = heartSensor.heartRate ? heartSensor.heartRate : 0;
+      let baseRate = user.restingHeartRate;
+      if (baseHeartRate && user.restingHeartRate !== undefined) {
+        heartDisplay.text = heartSensor.activated ? `${rate}/${baseRate}` : `--/${baseRate}`;
       } else {
-        heartDisplay.text = heartRateSensor.activated ? `${rate}` : '--';
+        heartDisplay.text = heartSensor.activated ? `${rate}` : '--';
       }
     };
+    heartSensor.start();
 
-    // If display is off, deactivate heart readings
+    // If display is off or device is off-wrist, deactivate heart readings
+    bodySensor.start();
     display.onchange = () => {
-      display.on && !heartRateSensor.activated ? heartRateSensor.start() : heartRateSensor.stop();
+      display.on && bodySensor.present ? heartSensor.start() : heartSensor.stop();
     };
-
-    // If not worn, deactivate heart readings
-    if (BodyPresenceSensor) {
-      const bodySensor = new BodyPresenceSensor();
-      bodySensor.onreading = () => {
-        bodySensor.present && !heartRateSensor.activated ? heartRateSensor.start() : heartRateSensor.stop();
-      };
-      bodySensor.start();
-
-      display.onchange = () => {
-        display.on && !heartRateSensor.activated ? heartRateSensor.start() : heartRateSensor.stop();
-        display.on && !bodySensor.activated ? bodySensor.start() : bodySensor.stop();
-      };
-    } else {
-      console.warn("The device doesn't have a body presence sensor.");
-    }
   } else {
-    console.warn("The device doesn't have a heart rate sensor.");
+    console.warn("The device is missing a heart rate sensor or a body presence sensor.");
   }
 } else {
   console.warn("The app doesn't have the 'access_heart_rate' permission.");
@@ -139,12 +87,13 @@ charger.onchange = () => {
 };
 
 // Displays battery charge level.
-function updateChargeDisplay() {
+function updateChargeDisplay(): void {
   let chargeLevel: number = battery.chargeLevel;
   batteryDisplay.text = `${chargeLevel}%`;
   batteryDisplay.x = chargeLevel > 20 && !charger.connected ? 10 : 45;
 }
 
+// Initializes battery display.
 updateChargeDisplay();
 
 // Fetches weather information and updates the display.

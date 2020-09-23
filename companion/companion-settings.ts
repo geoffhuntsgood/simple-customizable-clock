@@ -2,6 +2,7 @@ import * as weather from 'fitbit-weather/companion'
 import * as messaging from 'messaging';
 import {settingsStorage} from 'settings';
 import StorageData from '../types/storage-data';
+import {ActivityName} from "../types/activity-name";
 
 const WEATHER_API_KEY = 'e79ddcc3266e3ade636be2248739efe4';
 
@@ -9,7 +10,15 @@ const WEATHER_API_KEY = 'e79ddcc3266e3ade636be2248739efe4';
 weather.setup({provider: weather.Providers.openweathermap, apiKey: WEATHER_API_KEY});
 
 // Initializes the clock face's settings.
-export function initialize() {
+export function initialize(): void {
+  // By default, show all user activities.
+  Object.keys(ActivityName).forEach((act: string) => {
+    let key = `${act}Show`;
+    if (settingsStorage.getItem(key) === null) {
+      settingsStorage.setItem(key, 'true');
+    }
+  });
+
   settingsStorage.onchange = (event: StorageChangeEvent) => {
     if (event.key && event.newValue) {
       if (event.oldValue !== event.newValue &&

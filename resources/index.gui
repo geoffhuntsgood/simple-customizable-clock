@@ -5,7 +5,7 @@
   <text id="weatherDisplay" class="topRow">--</text>
   <text id="heartDisplay" class="topRow">--</text>
   <text id="dateDisplay"></text>
-  <text id="clockFace">--</text>
+  <text id="clockDisplay">--</text>
 
   <section class="activityContainer">
     <arc id="activeZoneMinutesArc"/>

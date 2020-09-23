@@ -1,9 +1,17 @@
 import document from 'document';
-import {units} from 'user-settings';
 import {ActiveZoneMinutes, goals, today} from 'user-activity';
+import {units} from 'user-settings';
 import {ActivityName} from '../types/activity-name';
 
-// Add zero in front of numbers < 10
+const mos = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+// Gets the abbreviated name of a numbered month.
+export function getMonthAndWeekdayNames(month: number, day: number): string[] {
+  return [mos[month], days[day]];
+}
+
+// Adds a zero in front of numbers < 10.
 export function zeroPad(i: number): string {
   return i < 10 ? `0${i}` : `${i}`;
 }
@@ -103,8 +111,8 @@ export function placeItem(name: string, x: number, y: number): void {
   text.y = y + 55;
 }
 
-// Calculate the progress arc angle for a user activity.
-function getAngle(name: string, progress: number | undefined, goal: number | undefined): number {
+// Calculates the progress arc angle for a user activity.
+export function getAngle(name: string, progress: number | undefined, goal: number | undefined): number {
   if (progress === undefined || goal === undefined) {
     console.log(`Goal is not set or progress cannot be retrieved for ${name}`);
     return 0;
@@ -113,8 +121,8 @@ function getAngle(name: string, progress: number | undefined, goal: number | und
   return Math.floor((progress * 360) / goal);
 }
 
-// Convert distance to km or miles
-function getDistanceText(distanceInMeters: number): string {
+// Converts distance to km or miles.
+export function getDistanceText(distanceInMeters: number): string {
   if (units.distance === 'metric') {
     return (distanceInMeters / 1000).toFixed(2);
   }
