@@ -1,7 +1,6 @@
 import {me as appbit} from 'appbit';
 import {goals} from 'user-activity';
 import {user} from 'user-profile';
-
 import {ActivityName} from './activity-name';
 import ActivityValues from './activity-values';
 

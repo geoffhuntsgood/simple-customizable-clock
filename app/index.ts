@@ -12,7 +12,7 @@ import {preferences, units} from 'user-settings';
 import * as settings from './device-settings';
 import * as util from './utils';
 import {ActivityName} from '../types/activity-name';
-import {baseHeartRate, initializeSettings} from '../settings/app-settings';
+import SettingsData from '../types/settings-data';
 
 // Elements that are updated in index.ts
 const batteryDisplay: TextElement = document.getElementById('batteryDisplay') as TextElement;
@@ -21,6 +21,9 @@ const weatherIcon: ImageElement = document.getElementById('weatherIcon') as Imag
 const heartDisplay: TextElement = document.getElementById('heartDisplay') as TextElement;
 const dateDisplay = document.getElementById('dateDisplay') as TextElement;
 const clockDisplay = document.getElementById('clockDisplay') as TextElement;
+
+// Boolean to track whether to display the resting heart rate.
+let baseHeartRate = false;
 
 // Updates time, date and activity progress.
 clock.granularity = 'seconds';
@@ -42,9 +45,6 @@ clock.ontick = (event) => {
     });
   }
 };
-
-// Initializes settings.
-settings.initialize(initializeSettings);
 
 // Updates heart rate display.
 if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
@@ -95,6 +95,48 @@ function updateChargeDisplay(): void {
 
 // Initializes battery display.
 updateChargeDisplay();
+
+// Initializes settings data for the app.
+function initializeSettings(data: SettingsData) {
+  if (!data) {
+    return;
+  }
+  baseHeartRate = data.baseHeartRateShow;
+
+  (document.getElementById('background') as RectElement).style.fill = data.backgroundColor;
+  (document.getElementById('clockDisplay') as TextElement).style.fill = data.timeColor;
+  (document.getElementById('dateDisplay') as TextElement).style.fill = data.dateColor;
+  (document.getElementById('batteryDisplay') as TextElement).style.fill = data.batteryColor;
+  (document.getElementById('weatherDisplay') as TextElement).style.fill = data.weatherColor;
+  (document.getElementById('weatherIcon') as ImageElement).style.fill = data.weatherColor;
+  (document.getElementById('heartDisplay') as TextElement).style.fill = data.heartColor;
+
+  // Set progress and color for visible elements and remove invisible elements
+  Object.keys(ActivityName).forEach((act: string) => {
+    let arc = document.getElementById(`${act}Arc`) as ArcElement;
+    let icon = document.getElementById(`${act}Icon`) as ImageElement;
+    let text = document.getElementById(`${act}Text`) as TextElement;
+
+    if (data[`${act}`].visible) {
+      // Set activity color
+      let activityColor: string = data[`${act}`].color;
+      arc.style.fill = activityColor;
+      icon.style.fill = activityColor;
+
+      // Set activity progress
+      util.setActivityProgress(text, arc, act);
+    } else {
+      // Remove activity from the clock face
+      util.removeActivity(arc, icon, text);
+    }
+  });
+
+  // Place visible elements
+  util.placeActivities(Object.keys(ActivityName).filter((act: string) => {
+    return data[`${act}`].visible === true;
+  }));
+}
+settings.initialize(initializeSettings);
 
 // Fetches weather information and updates the display.
 // Uses a cached value if the cache is less than 15 minutes old.

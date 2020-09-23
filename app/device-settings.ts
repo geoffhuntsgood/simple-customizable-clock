@@ -58,6 +58,9 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
       settings[data.key] = data.value;
   }
   onsettingschange(settings);
+
+  // Saves changed settings to the filesystem.
+  fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
 };
 
 // On settings unload, saves settings to filesystem.
