@@ -58,19 +58,19 @@ export function placeActivities(activityList: string[]): void {
     case 0:
       break;
     case 1:
-      placeItem(activityList[0], Math.floor(x / 2), row);
+      placeItem(activityList[0], Math.floor(x / 2) + 2, row);
       break;
     case 2: {
       let divider = Math.floor(x / 3);
-      placeItem(activityList[0], divider, row);
-      placeItem(activityList[1], divider * 2, row);
+      placeItem(activityList[0], divider + 2, row);
+      placeItem(activityList[1], (divider * 2) + 2, row);
       break;
     }
     case 3: {
       let divider = Math.floor(x / 4);
-      placeItem(activityList[0], divider, row);
-      placeItem(activityList[1], divider * 2, row);
-      placeItem(activityList[2], divider * 3, row);
+      placeItem(activityList[0], divider + 2, row);
+      placeItem(activityList[1], (divider * 2) + 2, row);
+      placeItem(activityList[2], (divider * 3) + 2, row);
       break;
     }
     case 4: {
@@ -83,11 +83,11 @@ export function placeActivities(activityList: string[]): void {
     }
     case 5: {
       let divider = Math.floor(x / 6);
-      placeItem(activityList[0], divider - 15, row);
-      placeItem(activityList[1], (divider * 2) - 5, row);
-      placeItem(activityList[2], (divider * 3) + 5, row);
-      placeItem(activityList[3], (divider * 4) + 15, row);
-      placeItem(activityList[4], (divider * 5) + 25, row);
+      placeItem(activityList[0], divider - 10, row);
+      placeItem(activityList[1], (divider * 2) - 4, row);
+      placeItem(activityList[2], (divider * 3) + 2, row);
+      placeItem(activityList[3], (divider * 4) + 8, row);
+      placeItem(activityList[4], (divider * 5) + 14, row);
       break;
     }
     default:
@@ -107,7 +107,7 @@ export function placeItem(name: string, x: number, y: number): void {
   arc.y = y - 30;
   icon.x = x - 15;
   icon.y = y - 15;
-  text.x = x;
+  text.x = x - 2;
   text.y = y + 55;
 }
 
