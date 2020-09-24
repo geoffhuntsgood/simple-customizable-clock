@@ -2,7 +2,7 @@
   "name": "simple-customizable-clock",
   "description": "A simple clock face with customizable colors and user activities.",
   "repository": "https://github.com/geoffhuntoon/simple-customizable-clock",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "keywords": [
     "fitbit",
