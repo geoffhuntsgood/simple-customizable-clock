@@ -14,7 +14,8 @@ export function initialize(): void {
   // By default, show all user activities.
   Object.keys(ActivityName).forEach((act: string) => {
     let key = `${act}Show`;
-    if (settingsStorage.getItem(key) === null) {
+    let settingKey = settingsStorage.getItem(key);
+    if (settingKey === null || settingKey === undefined) {
       settingsStorage.setItem(key, 'true');
     }
   });

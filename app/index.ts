@@ -1,4 +1,5 @@
 import {me as appbit} from 'appbit';
+import {Barometer} from 'barometer';
 import {BodyPresenceSensor} from 'body-presence';
 import clock from 'clock';
 import {display} from 'display';
@@ -35,9 +36,11 @@ clock.ontick = (event) => {
 
     // Set user activity progress
     Object.keys(ActivityName).forEach((act: string) => {
-      let arc: ArcElement = document.getElementById(`${act}Arc`) as ArcElement;
-      let text: TextElement = document.getElementById(`${act}Text`) as TextElement;
-      util.setActivityProgress(text, arc, act);
+      if (!(Barometer || act === 'elevationGain')) {
+        let arc: ArcElement = document.getElementById(`${act}Arc`) as ArcElement;
+        let text: TextElement = document.getElementById(`${act}Text`) as TextElement;
+        util.setActivityProgress(text, arc, act);
+      }
     });
   }
 };
@@ -100,6 +103,17 @@ function initializeSettings(data: SettingsData) {
     return;
   }
 
+  // Reinitialize activityOrder for changes in the settings file.
+  if (!data.activityOrder) {
+    data.activityOrder = [ActivityName.activeZoneMinutes, ActivityName.calories, ActivityName.distance,
+      ActivityName.elevationGain, ActivityName.steps];
+  }
+
+  // Skip elevationGain in devices that don't support it.
+  if (!Barometer) {
+    data.activityOrder = data.activityOrder.filter(act => act !== 'elevationGain');
+  }
+
   baseHeartRate = data.baseHeartRateShow;
 
   (document.getElementById('background') as RectElement).style.fill = data.backgroundColor;
@@ -137,9 +151,8 @@ function initializeSettings(data: SettingsData) {
 settings.initialize(initializeSettings);
 
 // Fetches weather information and updates the display.
-// Uses a cached value if the cache is less than 15 minutes old.
 function initializeWeather() {
-  weather.fetch(1000 * 60 * 15).then((result: weather.Result) => {
+  weather.fetch(0).then((result: weather.Result) => {
     let weatherIcon = document.getElementById('weatherIcon') as ImageElement;
     (document.getElementById('weatherDisplay') as TextElement).text = units.temperature === 'C' ?
         `${Math.floor(result.temperatureC)}&deg;` : `${Math.floor(result.temperatureF)}&deg;`;

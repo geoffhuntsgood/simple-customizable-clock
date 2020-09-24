@@ -35,7 +35,7 @@ test('Test singular activity placement via placeItem()', () => {
   expect(document.icon.x).toBe(85);
   expect(document.icon.y).toBe(35);
   expect(document.icon.style.display).toBe('inline');
-  expect(document.text.x).toBe(100);
+  expect(document.text.x).toBe(98);
   expect(document.text.y).toBe(105);
   expect(document.text.style.display).toBe('inline');
 });
