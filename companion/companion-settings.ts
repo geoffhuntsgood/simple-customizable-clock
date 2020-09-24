@@ -1,8 +1,8 @@
 import * as weather from 'fitbit-weather/companion'
 import * as messaging from 'messaging';
 import {settingsStorage} from 'settings';
+import {ActivityName} from '../types/activity-name';
 import StorageData from '../types/storage-data';
-import {ActivityName} from "../types/activity-name";
 
 const WEATHER_API_KEY = 'e79ddcc3266e3ade636be2248739efe4';
 

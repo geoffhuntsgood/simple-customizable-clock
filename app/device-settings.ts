@@ -1,6 +1,7 @@
 import {me as appbit} from 'appbit';
 import * as fs from 'fs';
 import * as messaging from 'messaging';
+import {ActivityName} from '../types/activity-name';
 import SettingsData from '../types/settings-data';
 import StorageData from '../types/storage-data';
 
@@ -27,32 +28,32 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
     case 'activeZoneMinutesColor':
       settings.activeZoneMinutes.color = data.value as string;
       break;
-    case 'activeZoneMinutesShow':
-      settings.activeZoneMinutes.visible = data.value as boolean;
-      break;
     case 'caloriesColor':
       settings.calories.color = data.value as string;
-      break;
-    case 'caloriesShow':
-      settings.calories.visible = data.value as boolean;
       break;
     case 'distanceColor':
       settings.distance.color = data.value as string;
       break;
-    case 'distanceShow':
-      settings.distance.visible = data.value as boolean;
-      break;
     case 'elevationGainColor':
       settings.elevationGain.color = data.value as string;
-      break;
-    case 'elevationGainShow':
-      settings.elevationGain.visible = data.value as boolean;
       break;
     case 'stepsColor':
       settings.steps.color = data.value as string;
       break;
+    case 'activeZoneMinutesShow':
+      toggleOrder(data.value, ActivityName.activeZoneMinutes, settings.activityOrder);
+      break;
+    case 'caloriesShow':
+      toggleOrder(data.value, ActivityName.calories, settings.activityOrder);
+      break;
+    case 'distanceShow':
+      toggleOrder(data.value, ActivityName.distance, settings.activityOrder);
+      break;
+    case 'elevationGainShow':
+      toggleOrder(data.value, ActivityName.elevationGain, settings.activityOrder);
+      break;
     case 'stepsShow':
-      settings.steps.visible = data.value as boolean;
+      toggleOrder(data.value, ActivityName.steps, settings.activityOrder);
       break;
     default:
       settings[data.key] = data.value;
@@ -74,5 +75,14 @@ function loadSettings(): SettingsData {
     console.warn(`${SETTINGS_FILE} does not exist. Writing a new one.`);
     fs.writeFileSync(SETTINGS_FILE, new SettingsData(), SETTINGS_TYPE);
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
+  }
+}
+
+// Toggles user activity order.
+function toggleOrder(show: boolean, name: ActivityName, activityOrder: string[]) {
+  if (show === true && activityOrder.indexOf(name) === -1) {
+    activityOrder.push(name);
+  } else if (show === false && activityOrder.indexOf(name) !== -1) {
+    activityOrder.splice(activityOrder.indexOf(name), 1);
   }
 }

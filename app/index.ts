@@ -47,21 +47,21 @@ if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
   if (HeartRateSensor && BodyPresenceSensor) {
     const heartSensor = new HeartRateSensor();
     const bodySensor = new BodyPresenceSensor();
+    bodySensor.start();
 
     // Display heart rate and/or base heart rate.
     heartSensor.onreading = () => {
       let rate = heartSensor.heartRate ? heartSensor.heartRate : 0;
       let baseRate = user.restingHeartRate;
-      if (baseHeartRate && user.restingHeartRate !== undefined) {
-        heartDisplay.text = heartSensor.activated ? `${rate}/${baseRate}` : `--/${baseRate}`;
+      if (baseHeartRate && baseRate !== undefined) {
+        heartDisplay.text = heartSensor.activated && bodySensor.present ? `${rate}/${baseRate}` : `--/${baseRate}`;
       } else {
-        heartDisplay.text = heartSensor.activated ? `${rate}` : '--';
+        heartDisplay.text = heartSensor.activated && bodySensor.present ? `${rate}` : '--';
       }
     };
     heartSensor.start();
 
     // If display is off or device is off-wrist, deactivate heart readings
-    bodySensor.start();
     display.onchange = () => {
       display.on ? bodySensor.start() : bodySensor.stop();
       display.on && bodySensor.present ? heartSensor.start() : heartSensor.stop();
@@ -99,6 +99,7 @@ function initializeSettings(data: SettingsData) {
   if (!data) {
     return;
   }
+
   baseHeartRate = data.baseHeartRateShow;
 
   (document.getElementById('background') as RectElement).style.fill = data.backgroundColor;
@@ -115,7 +116,7 @@ function initializeSettings(data: SettingsData) {
     let icon = document.getElementById(`${act}Icon`) as ImageElement;
     let text = document.getElementById(`${act}Text`) as TextElement;
 
-    if (data[`${act}`].visible) {
+    if (data.activityOrder.indexOf(act) !== -1) {
       // Set activity color
       let activityColor: string = data[`${act}`].color;
       arc.style.fill = activityColor;
@@ -130,9 +131,7 @@ function initializeSettings(data: SettingsData) {
   });
 
   // Place visible elements
-  util.placeActivities(Object.keys(ActivityName).filter((act: string) => {
-    return data[`${act}`].visible === true;
-  }));
+  util.placeActivities(data.activityOrder);
 }
 
 settings.initialize(initializeSettings);

@@ -5,7 +5,6 @@ export default class ActivityValues {
 
   goal: number = 0;
   color: string = 'white';
-  visible: boolean = true;
 
   constructor(readonly name: ActivityName, goal: number) {
     this.goal = goal;

@@ -22,6 +22,9 @@ export default class SettingsData {
   elevationGain: ActivityValues;
   steps: ActivityValues;
 
+  activityOrder: string[] = [ActivityName.activeZoneMinutes, ActivityName.calories, ActivityName.distance,
+    ActivityName.elevationGain, ActivityName.steps];
+
   constructor() {
     this.activeZoneMinutes =
         new ActivityValues(ActivityName.activeZoneMinutes, SettingsData.getGoal(ActivityName.activeZoneMinutes));

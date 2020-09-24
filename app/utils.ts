@@ -49,7 +49,7 @@ export function removeActivity(arc: ArcElement, icon: ImageElement, text: TextEl
 
 // Places shown user activities on the clock face.
 export function placeActivities(activityList: string[]): void {
-  let background: RectElement = document.getElementById('root') as RectElement;
+  let background = document.getElementById('root') as RectElement;
   let x: number = background.width;
   let y: number = background.height;
   let row: number = Math.floor((y / 5) * 4);
