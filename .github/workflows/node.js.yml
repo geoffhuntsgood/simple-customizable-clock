@@ -18,4 +18,3 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npx fitbit-build
-    - run: npm test
