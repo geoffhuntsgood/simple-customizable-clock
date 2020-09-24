@@ -9,7 +9,7 @@
 
   <section class="activityContainer">
     <arc id="activeZoneMinutesArc"/>
-    <image id="activeZoneMinutesIcon" href="icons/activities/am.png"/>
+    <image id="activeZoneMinutesIcon" href="icons/activities/azm.png"/>
     <text id="activeZoneMinutesText" class="activityText" text-length="3">--</text>
   </section>
 
@@ -28,7 +28,7 @@
   <section class="activityContainer">
     <arc id="distanceArc"/>
     <image id="distanceIcon" href="icons/activities/dist.png"/>
-    <text id="distanceText" class="activityText" text-length="5">--</text>
+    <text id="distanceText" class="activityText" text-length="6">--</text>
   </section>
   
   <section class="activityContainer">
