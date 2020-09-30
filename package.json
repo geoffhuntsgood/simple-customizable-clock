@@ -47,6 +47,7 @@
   },
   "scripts": {
     "build": "npx fitbit-build",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   }
 }
