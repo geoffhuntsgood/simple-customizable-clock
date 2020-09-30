@@ -1,9 +1,9 @@
 /.idea
 /build
 /coverage
-/developer-bridge-master
 /node_modules
 
 *.iml
 *.js
 *.js.map
+!jest.config.js
