@@ -43,7 +43,7 @@
     "fitbit-weather": "^0.2.2",
     "fitbit-weather-types": "0.0.3",
     "jest": "^26.4.2",
-    "ts-jest": "^26.4.0"
+    "ts-jest": "^26.4.1"
   },
   "scripts": {
     "build": "npx fitbit-build",
