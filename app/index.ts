@@ -1,7 +1,7 @@
 import {me as appbit} from 'appbit';
 import {Barometer} from 'barometer';
 import {BodyPresenceSensor} from 'body-presence';
-import clock from 'clock';
+import clock, {TickEvent} from 'clock';
 import {display} from 'display';
 import document from 'document';
 import * as weather from 'fitbit-weather/app';
@@ -22,28 +22,36 @@ const clockDisplay = document.getElementById('clockDisplay') as TextElement;
 // Boolean to track whether to display the resting heart rate.
 let baseHeartRate = false;
 
-// Updates time, date and activity progress.
+// Set TickEvent to every second
 clock.granularity = 'seconds';
-clock.ontick = (event) => {
+clock.ontick = (event: TickEvent) => {
+  onTick(event);
+};
+
+// Updates time, date and activity progress.
+export function onTick(event: TickEvent) {
   if (dateDisplay && clockDisplay) {
     // Set time and date
-    let now = event.date;
-    let monthAndDay = util.getMonthAndWeekdayNames(now.getMonth(), now.getDay());
+    let now: Date = event.date;
+    let monthAndDay: string[] = util.getMonthAndWeekdayNames(now.getMonth(), now.getDay());
     dateDisplay.text = `${monthAndDay[1]}, ${monthAndDay[0]} ${now.getDate()} ${now.getFullYear()}`;
 
-    let hours = preferences.clockDisplay === '12h' ? (now.getHours() % 12 || 12) : now.getHours();
+    let hours: number = preferences.clockDisplay === '12h' ? (now.getHours() % 12 || 12) : now.getHours();
     clockDisplay.text = `${hours}:${util.zeroPad(now.getMinutes())}`;
 
-    // Set user activity progress
-    Object.keys(ActivityName).forEach((act: string) => {
-      if (!(Barometer || act === 'elevationGain')) {
-        let arc: ArcElement = document.getElementById(`${act}Arc`) as ArcElement;
-        let text: TextElement = document.getElementById(`${act}Text`) as TextElement;
-        util.setActivityProgress(text, arc, act);
-      }
-    });
+    // Sets user activity progress
+    let nameList: string[] = [];
+    if (!Barometer) {
+      nameList = Object.keys(ActivityName).filter((act: string) => {
+        return act !== ActivityName.elevationGain;
+      });
+    } else {
+      nameList = Object.keys(ActivityName);
+    }
+
+    nameList.forEach((act: string) => util.setActivityProgress(act));
   }
-};
+}
 
 // Updates heart rate display.
 if (appbit.permissions.granted('access_heart_rate' as PermissionName)) {
@@ -137,7 +145,7 @@ function initializeSettings(data: SettingsData) {
       icon.style.fill = activityColor;
 
       // Set activity progress
-      util.setActivityProgress(text, arc, act);
+      util.setActivityProgress(act);
     } else {
       // Remove activity from the clock face
       util.removeActivity(arc, icon, text);

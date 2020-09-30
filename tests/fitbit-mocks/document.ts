@@ -8,13 +8,10 @@ class TestElement {
   };
 }
 
-let arc: ArcElement = new TestElement() as ArcElement;
-
-let icon: ImageElement = new TestElement() as ImageElement;
-
-let text: TextElement = new TestElement() as TextElement;
-
-let root: RectElement = new TestElement() as RectElement;
+let arc = new TestElement() as ArcElement;
+let icon = new TestElement() as ImageElement;
+let text = new TestElement() as TextElement;
+let root = new TestElement() as RectElement;
 
 function getElementById(id: string) {
   if (id.includes('Arc')) {
@@ -23,11 +20,8 @@ function getElementById(id: string) {
     return icon;
   } else if (id.includes('Text')) {
     return text;
-  } else if (id === 'root') {
-    return root;
   } else {
-    console.log('What are you doing?');
-    return null;
+    return root;
   }
 }
 

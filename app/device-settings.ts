@@ -68,7 +68,7 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
 appbit.onunload = () => fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
 
 // Loads settings from filesystem.
-function loadSettings(): SettingsData {
+export function loadSettings(): SettingsData {
   if (fs.existsSync(SETTINGS_FILE)) {
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   } else {
@@ -79,7 +79,7 @@ function loadSettings(): SettingsData {
 }
 
 // Toggles user activity order.
-function toggleOrder(show: boolean, name: ActivityName, activityOrder: string[]) {
+export function toggleOrder(show: boolean, name: ActivityName, activityOrder: string[]) {
   if (show === true && activityOrder.indexOf(name) === -1) {
     activityOrder.push(name);
   } else if (show === false && activityOrder.indexOf(name) !== -1) {

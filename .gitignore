@@ -1,5 +1,6 @@
 /.idea
 /build
+/coverage
 /developer-bridge-master
 /node_modules
 
