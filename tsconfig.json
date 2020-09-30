@@ -1,6 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
@@ -8,6 +9,7 @@
     "newLine": "LF",
     "noEmit": true,
     "noErrorTruncation": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true
   },
