@@ -1,7 +1,8 @@
+import documentTest from '../fitbit-mocks/document';
+import * as userActivityTest from '../fitbit-mocks/user-activity';
+import * as userSettingsTest from '../fitbit-mocks/user-settings';
+
 const utilsTests = require('../../app/utils.ts');
-const documentTest = require('../fitbit-mocks/document.ts');
-const userActivityTest = require('../fitbit-mocks/user-activity.ts');
-const userSettingsTest = require('../fitbit-mocks/user-settings.ts');
 
 // getMonthAndWeekdayNames()
 test('Test getMonthAndWeekdayNames()', () => {
