@@ -34,13 +34,20 @@ clock.ontick = (event) => {
     let hours = preferences.clockDisplay === '12h' ? (now.getHours() % 12 || 12) : now.getHours();
     clockDisplay.text = `${hours}:${util.zeroPad(now.getMinutes())}`;
 
-    // Set user activity progress
-    Object.keys(ActivityName).forEach((act: string) => {
-      if (!(Barometer || act === 'elevationGain')) {
-        let arc: ArcElement = document.getElementById(`${act}Arc`) as ArcElement;
-        let text: TextElement = document.getElementById(`${act}Text`) as TextElement;
-        util.setActivityProgress(text, arc, act);
-      }
+    // Sets user activity progress
+    let nameList: string[] = [];
+    if (!Barometer) {
+      nameList = Object.keys(ActivityName).filter((act: string) => {
+        return act !== ActivityName.elevationGain;
+      });
+    } else {
+      nameList = Object.keys(ActivityName);
+    }
+
+    nameList.forEach((act: string) => {
+      let text = document.getElementById(`${act}Text`) as TextElement;
+      let arc = document.getElementById(`${act}Arc`) as ArcElement;
+      util.setActivityProgress(text, arc, act);
     });
   }
 };
