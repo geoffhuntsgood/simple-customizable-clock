@@ -1,17 +1,19 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
+    "allowJs": false,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "jsxFactory": "createComponent",
+    "module": "esnext",
     "newLine": "LF",
     "noEmit": true,
     "noErrorTruncation": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es5"
   },
   "include": [
     "**/*.ts",

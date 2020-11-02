@@ -21,10 +21,9 @@ export function setActivityProgress(act: string): void {
   let arc = document.getElementById(`${act}Arc`) as ArcElement;
   let text = document.getElementById(`${act}Text`) as TextElement;
 
-  // @ts-ignore
   let progress: ActiveZoneMinutes | number = today.adjusted[`${act}`];
-  // @ts-ignore
   let goal: ActiveZoneMinutes | number = goals[`${act}`];
+
   if (typeof progress === 'number' && typeof goal === 'number') {
     text.text = act === ActivityName.distance ? `${getDistanceText(progress)}` : `${progress}`;
     arc.sweepAngle = getAngle(act, progress, goal);
