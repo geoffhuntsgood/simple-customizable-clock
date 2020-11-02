@@ -15,6 +15,7 @@ export default class SettingsData {
   weatherColor: string = 'white';
   heartColor: string = 'red';
   baseHeartRateShow: boolean = false;
+  useCelsius: boolean = false;
 
   activeZoneMinutes: ActivityValues;
   calories: ActivityValues;

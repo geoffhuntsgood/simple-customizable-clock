@@ -6,4 +6,5 @@
 *.iml
 *.js
 *.js.map
+
 !jest.config.js
