@@ -48,9 +48,7 @@ clock.ontick = (event: TickEvent) => {
     }
 
     nameList.forEach((act: string) => {
-      let text = document.getElementById(`${act}Text`) as TextElement;
-      let arc = document.getElementById(`${act}Arc`) as ArcElement;
-      util.setActivityProgress(text, arc, act);
+      util.setActivityProgress(act);
     });
   }
 };
@@ -125,7 +123,11 @@ function initializeSettings(data: SettingsData): void {
   }
 
   baseHeartRate = data.baseHeartRateShow;
-  useCelsius = data.useCelsius;
+
+  if (useCelsius !== data.useCelsius) {
+    useCelsius = data.useCelsius;
+    initializeWeather();
+  }
 
   (document.getElementById('background') as RectElement).style.fill = data.backgroundColor;
   (document.getElementById('clockDisplay') as TextElement).style.fill = data.timeColor;
@@ -148,7 +150,7 @@ function initializeSettings(data: SettingsData): void {
       icon.style.fill = activityColor;
 
       // Set activity progress
-      util.setActivityProgress(text, arc, act);
+      util.setActivityProgress(act);
     } else {
       // Remove activity from the clock face
       util.removeActivity(arc, icon, text);

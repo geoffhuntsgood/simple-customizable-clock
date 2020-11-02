@@ -63,6 +63,12 @@ export function onMessage(event: messaging.MessageEvent): void {
     case 'stepsShow':
       toggleOrder(data.value, ActivityName.steps, settings.activityOrder);
       break;
+    case 'baseHeartRateShow':
+      settings.baseHeartRateShow = data.value as boolean;
+      break;
+    case 'useCelsius':
+      settings.useCelsius = data.value as boolean;
+      break;
     default:
       settings[data.key] = data.value;
   }
