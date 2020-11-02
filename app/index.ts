@@ -1,14 +1,14 @@
 import {me as appbit} from 'appbit';
 import {Barometer} from 'barometer';
 import {BodyPresenceSensor} from 'body-presence';
-import clock from 'clock';
+import clock, {TickEvent} from 'clock';
 import {display} from 'display';
 import document from 'document';
 import * as weather from 'fitbit-weather/app';
 import {HeartRateSensor} from 'heart-rate';
 import {battery, charger} from 'power';
 import {user} from 'user-profile';
-import {preferences, units} from 'user-settings';
+import {preferences} from 'user-settings';
 import * as settings from './device-settings';
 import * as util from './utils';
 import {ActivityName} from '../types/activity-name';
@@ -22,9 +22,12 @@ const clockDisplay = document.getElementById('clockDisplay') as TextElement;
 // Boolean to track whether to display the resting heart rate.
 let baseHeartRate = false;
 
+// Boolean to show weather in Fahrenheit or Celsius.
+let useCelsius = false;
+
 // Updates time, date and activity progress.
 clock.granularity = 'seconds';
-clock.ontick = (event) => {
+clock.ontick = (event: TickEvent) => {
   if (dateDisplay && clockDisplay) {
     // Set time and date
     let now = event.date;
@@ -45,9 +48,7 @@ clock.ontick = (event) => {
     }
 
     nameList.forEach((act: string) => {
-      let text = document.getElementById(`${act}Text`) as TextElement;
-      let arc = document.getElementById(`${act}Arc`) as ArcElement;
-      util.setActivityProgress(text, arc, act);
+      util.setActivityProgress(act);
     });
   }
 };
@@ -105,7 +106,7 @@ function updateChargeDisplay(): void {
 updateChargeDisplay();
 
 // Initializes settings data for the app.
-function initializeSettings(data: SettingsData) {
+function initializeSettings(data: SettingsData): void {
   if (!data) {
     return;
   }
@@ -122,6 +123,11 @@ function initializeSettings(data: SettingsData) {
   }
 
   baseHeartRate = data.baseHeartRateShow;
+
+  if (useCelsius !== data.useCelsius) {
+    useCelsius = data.useCelsius;
+    initializeWeather();
+  }
 
   (document.getElementById('background') as RectElement).style.fill = data.backgroundColor;
   (document.getElementById('clockDisplay') as TextElement).style.fill = data.timeColor;
@@ -144,7 +150,7 @@ function initializeSettings(data: SettingsData) {
       icon.style.fill = activityColor;
 
       // Set activity progress
-      util.setActivityProgress(text, arc, act);
+      util.setActivityProgress(act);
     } else {
       // Remove activity from the clock face
       util.removeActivity(arc, icon, text);
@@ -161,7 +167,7 @@ settings.initialize(initializeSettings);
 function initializeWeather() {
   weather.fetch(0).then((result: weather.Result) => {
     let weatherIcon = document.getElementById('weatherIcon') as ImageElement;
-    (document.getElementById('weatherDisplay') as TextElement).text = units.temperature === 'C' ?
+    (document.getElementById('weatherDisplay') as TextElement).text = useCelsius === true ?
         `${Math.floor(result.temperatureC)}&deg;` : `${Math.floor(result.temperatureF)}&deg;`;
     switch (result.conditionCode) {
       case 0:

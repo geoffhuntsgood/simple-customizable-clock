@@ -6,7 +6,7 @@ import {ActivityName} from '../types/activity-name';
 const mos = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-// Gets the abbreviated name of a numbered month.
+// Gets the abbreviated name of a numbered month and weekday.
 export function getMonthAndWeekdayNames(month: number, day: number): string[] {
   return [mos[month], days[day]];
 }
@@ -17,11 +17,13 @@ export function zeroPad(i: number): string {
 }
 
 // Sets progress for a user activity's text and arc elements.
-export function setActivityProgress(text: TextElement, arc: ArcElement, act: string): void {
-  // @ts-ignore
+export function setActivityProgress(act: string): void {
+  let arc = document.getElementById(`${act}Arc`) as ArcElement;
+  let text = document.getElementById(`${act}Text`) as TextElement;
+
   let progress: ActiveZoneMinutes | number = today.adjusted[`${act}`];
-  // @ts-ignore
   let goal: ActiveZoneMinutes | number = goals[`${act}`];
+
   if (typeof progress === 'number' && typeof goal === 'number') {
     text.text = act === ActivityName.distance ? `${getDistanceText(progress)}` : `${progress}`;
     arc.sweepAngle = getAngle(act, progress, goal);
@@ -97,9 +99,9 @@ export function placeActivities(activityList: string[]): void {
 
 // Sets x/y coordinates for an activity item.
 export function placeItem(name: string, x: number, y: number): void {
-  let arc: ArcElement = document.getElementById(`${name}Arc`) as ArcElement;
-  let icon: ImageElement = document.getElementById(`${name}Icon`) as ImageElement;
-  let text: TextElement = document.getElementById(`${name}Text`) as TextElement;
+  let arc = document.getElementById(`${name}Arc`) as ArcElement;
+  let icon = document.getElementById(`${name}Icon`) as ImageElement;
+  let text = document.getElementById(`${name}Text`) as TextElement;
   arc.style.display = 'inline';
   icon.style.display = 'inline';
   text.style.display = 'inline';

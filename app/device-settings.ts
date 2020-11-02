@@ -16,10 +16,18 @@ export function initialize(callback: Function): void {
   settings = loadSettings();
   onsettingschange = callback;
   onsettingschange(settings);
+
+  // Adds settings change hook
+  messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
+    onMessage(event);
+  };
+
+  // On settings unload, saves settings to filesystem
+  appbit.onunload = () => fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
 }
 
-// Changes settings based on received message.
-messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
+// Changes settings based on a received message.
+export function onMessage(event: messaging.MessageEvent): void {
   let data: StorageData = event.data;
   switch (data.key) {
     case undefined:
@@ -55,6 +63,12 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
     case 'stepsShow':
       toggleOrder(data.value, ActivityName.steps, settings.activityOrder);
       break;
+    case 'baseHeartRateShow':
+      settings.baseHeartRateShow = data.value as boolean;
+      break;
+    case 'useCelsius':
+      settings.useCelsius = data.value as boolean;
+      break;
     default:
       settings[data.key] = data.value;
   }
@@ -62,13 +76,10 @@ messaging.peerSocket.onmessage = (event: messaging.MessageEvent) => {
 
   // Saves changed settings to the filesystem.
   fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
-};
-
-// On settings unload, saves settings to filesystem.
-appbit.onunload = () => fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
+}
 
 // Loads settings from filesystem.
-function loadSettings(): SettingsData {
+export function loadSettings(): SettingsData {
   if (fs.existsSync(SETTINGS_FILE)) {
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   } else {
@@ -79,7 +90,7 @@ function loadSettings(): SettingsData {
 }
 
 // Toggles user activity order.
-function toggleOrder(show: boolean, name: ActivityName, activityOrder: string[]) {
+export function toggleOrder(show: boolean, name: ActivityName, activityOrder: string[]): void {
   if (show === true && activityOrder.indexOf(name) === -1) {
     activityOrder.push(name);
   } else if (show === false && activityOrder.indexOf(name) !== -1) {
