@@ -35,7 +35,7 @@
     "defaultLanguage": "en-US"
   },
   "devDependencies": {
-    "@fitbit/sdk": "^4.1.0",
+    "@fitbit/sdk": "^5.0.1",
     "@fitbit/sdk-cli": "^1.7.3",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.7",
