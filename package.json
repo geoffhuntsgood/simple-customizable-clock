@@ -42,7 +42,7 @@
     "fitbit-sdk-types": "^5.0.0",
     "fitbit-weather": "^0.2.2",
     "fitbit-weather-types": "0.0.3",
-    "io-ts": "^2.2.12",
+    "io-ts": "^2.2.13",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4"
   },
