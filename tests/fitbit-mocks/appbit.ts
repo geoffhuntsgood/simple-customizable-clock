@@ -1,3 +1,0 @@
-let me = {};
-
-export {me};

@@ -55,21 +55,22 @@ export const handleSettingChange = (event: StorageChangeEvent): void => {
 
 // Fetches weather information and updates the display.
 export const getWeather = async (): Promise<void> => {
-  geolocation.getCurrentPosition((position: Position) => {
-    let latitude = position.coords.latitude;
-    let longitude = position.coords.longitude;
-    let key = apiKey ? apiKey : "e79ddcc3266e3ade636be2248739efe4";
-    let url = `https://api.openweathermap.org/data/2.5/weather?appid=${key}&lat=${latitude}&lon=${longitude}`;
+  geolocation.getCurrentPosition(
+    (position: Position) => {
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      let key = apiKey ? apiKey : "e79ddcc3266e3ade636be2248739efe4";
+      let url = `https://api.openweathermap.org/data/2.5/weather?appid=${key}&lat=${latitude}&lon=${longitude}`;
 
-    fetch(url)
+      fetch(url)
         .then((response: Response) => response.json())
         .then((data) => {
           if (data.weather) {
             let weatherData = new WeatherData(
-                data.main.temp - 273.15,
-                (data.main.temp - 273.15) * 9 / 5 + 32,
-                data.dt > data.sys.sunrise && data.dt < data.sys.sunset,
-                data.weather[0].id
+              data.main.temp - 273.15,
+              ((data.main.temp - 273.15) * 9) / 5 + 32,
+              data.dt > data.sys.sunrise && data.dt < data.sys.sunset,
+              data.weather[0].id
             );
             let storageData = new StorageData("weather", JSON.stringify(weatherData));
             if (peerSocket.readyState === peerSocket.OPEN) {
@@ -79,12 +80,15 @@ export const getWeather = async (): Promise<void> => {
               inFlights.push(storageData);
             }
           }
-        }).catch((error) => {
-      console.log(error);
-    });
-  }, (error: PositionError) => {
-    console.log(error.message);
-  });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    (error: PositionError) => {
+      console.log(error.message);
+    }
+  );
 };
 
 peerSocket.onopen = () => {
@@ -92,7 +96,6 @@ peerSocket.onopen = () => {
     console.log("Sending in-flight requests to device...");
     sendInFlights();
   }
-
 };
 
 // Sends all incomplete requests to the device when ready.

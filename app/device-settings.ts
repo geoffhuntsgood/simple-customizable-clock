@@ -31,7 +31,7 @@ export const initialize = (callback: Function): void => {
 
   // On settings unload, saves settings to filesystem
   appbit.onunload = () => fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
-}
+};
 
 // Changes settings based on a received message.
 export const onMessage = (event: MessageEvent): void => {
@@ -70,7 +70,7 @@ export const onMessage = (event: MessageEvent): void => {
 
   // Saves changed settings to the filesystem.
   fs.writeFileSync(SETTINGS_FILE, settings, SETTINGS_TYPE);
-}
+};
 
 // Loads settings from filesystem.
 export const loadSettings = (): SettingsData => {
@@ -81,7 +81,7 @@ export const loadSettings = (): SettingsData => {
     fs.writeFileSync(SETTINGS_FILE, new SettingsData(), SETTINGS_TYPE);
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   }
-}
+};
 
 // Toggles user activity order.
 export const toggleOrder = (show: boolean, name: ActivityName, activityOrder: string[]): void => {
@@ -90,13 +90,14 @@ export const toggleOrder = (show: boolean, name: ActivityName, activityOrder: st
   } else if (!show && activityOrder.indexOf(name) !== -1) {
     activityOrder.splice(activityOrder.indexOf(name), 1);
   }
-}
+};
 
 // Function that retrieves weather data and populates the clock face accordingly.
 export const populateWeather = (weather: WeatherData): void => {
   if (weather !== null) {
-    weatherDisplay.text = funcs.getUseCelsius() ? `${Math.floor(weather.celsius)}&deg;`
-        : `${Math.floor(weather.fahrenheit)}&deg;`;
+    weatherDisplay.text = funcs.getUseCelsius()
+      ? `${Math.floor(weather.celsius)}&deg;`
+      : `${Math.floor(weather.fahrenheit)}&deg;`;
     weatherIcon.href = funcs.getConditionIconPath(weather.conditionCode, weather.daytime);
   } else {
     weatherDisplay.text = "--&deg;";
