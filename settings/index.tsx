@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 const colorSet = [
   {color: 'red'},
   {color: 'crimson'},
@@ -32,14 +30,14 @@ const options = [
 ];
 
 registerSettingsPage(() => <Page>
-  <Section title={<Text>Display User Activities</Text>}>
-    <Toggle settingsKey={'activeZoneMinutesShow'} label={<Text>Active Zone Minutes</Text>}/>
-    <Toggle settingsKey={'caloriesShow'} label={<Text>Calories Burned</Text>}/>
-    <Toggle settingsKey={'distanceShow'} label={<Text>Distance Traveled</Text>}/>
-    <Toggle settingsKey={'elevationGainShow'} label={<Text>Floors Climbed</Text>}/>
-    <Toggle settingsKey={'stepsShow'} label={<Text>Steps Taken</Text>}/>
-    <Toggle settingsKey={'baseHeartRateShow'} label={<Text>Show Resting Heart Rate</Text>}/>
-    <Toggle settingsKey={'useCelsius'} label={<Text>Use Celsius for Weather</Text>}/>
+  <Section title="Display User Activities">
+    <Toggle settingsKey='activeZoneMinutesShow' label="Active Zone Minutes"/>
+    <Toggle settingsKey='caloriesShow' label="Calories Burned"/>
+    <Toggle settingsKey='distanceShow' label="Distance Traveled"/>
+    <Toggle settingsKey='elevationGainShow' label="Floors Climbed"/>
+    <Toggle settingsKey='stepsShow' label="Steps Taken"/>
+    <Toggle settingsKey='baseHeartRateShow' label="Show Resting Heart Rate"/>
+    <Toggle settingsKey='useCelsius' label="Use Celsius for Weather"/>
   </Section>
   {options.map(([title, settingsKey]) =>
       <Section title={title}>
