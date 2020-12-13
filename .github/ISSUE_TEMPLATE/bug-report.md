@@ -1,10 +1,9 @@
 ---
 name: Bug Report
 about: Create a report to help us improve!
-title: ''
+title: ""
 labels: bug
 assignees: geoffhuntoon
-
 ---
 
 **Describe the bug**
@@ -12,6 +11,7 @@ A clear description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior, for example:
+
 - Change '....' setting
 - Click on '....'
 - Activate '....'
