@@ -1,12 +1,12 @@
 import { me as appbit } from "appbit";
+import document from "document";
 import * as fs from "fs";
 import { MessageEvent, peerSocket } from "messaging";
 import { ActivityName } from "../types/activity-name";
 import SettingsData from "../types/settings-data";
 import StorageData from "../types/storage-data";
-import * as funcs from "./app-functions";
 import WeatherData from "../types/weather-data";
-import document from "document";
+import { getUseCelsius } from "./app-functions-settings";
 
 const SETTINGS_TYPE = "cbor";
 const SETTINGS_FILE = "settings.cbor";
@@ -93,14 +93,34 @@ export const toggleOrder = (show: boolean, name: ActivityName, activityOrder: st
 };
 
 // Function that retrieves weather data and populates the clock face accordingly.
-export const populateWeather = (weather: WeatherData): void => {
+export const populateWeather = (weather: WeatherData | null): void => {
   if (weather !== null) {
-    weatherDisplay.text = funcs.getUseCelsius()
-      ? `${Math.floor(weather.celsius)}&deg;`
-      : `${Math.floor(weather.fahrenheit)}&deg;`;
-    weatherIcon.href = funcs.getConditionIconPath(weather.conditionCode, weather.daytime);
+    weatherDisplay.text = getUseCelsius()
+        ? `${Math.floor(weather.celsius)}&deg;`
+        : `${Math.floor(weather.fahrenheit)}&deg;`;
+    weatherIcon.href = getConditionIconPath(weather.conditionCode, weather.daytime);
   } else {
     weatherDisplay.text = "--&deg;";
     weatherIcon.href = "icons/weather/sun.png";
+  }
+};
+
+export const getConditionIconPath = (code: number, isDay: boolean = true): string => {
+  if (code < 300) {
+    return "icons/weather/cloud-lightning.png";
+  } else if (code < 400) {
+    return "icons/weather/cloud-drizzle.png";
+  } else if (code < 500) {
+    return "icons/weather/cloud-rain.png";
+  } else if (code < 600) {
+    return "icons/weather/cloud-snow.png";
+  } else if (code < 700) {
+    return "icons/weather/fog.png";
+  } else if (code === 801 || code === 802) {
+    return isDay ? "icons/weather/cloud-sun.png" : "icons/weather/cloud-moon.png";
+  } else if (code === 803 || code === 804) {
+    return "icons/weather/cloud.png";
+  } else {
+    return isDay ? "icons/weather/sun.png" : "icons/weather/moon-stars.png";
   }
 };

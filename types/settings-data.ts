@@ -1,4 +1,4 @@
-import { getActivityNames } from "../app/app-functions";
+import { getActivityNames } from "../app/app-functions-activities";
 
 // Container class for all user settings.
 export default class SettingsData {

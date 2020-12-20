@@ -1,9 +1,9 @@
+import { geolocation } from "geolocation";
 import { peerSocket } from "messaging";
 import { settingsStorage } from "settings";
 import { ActivityName } from "../types/activity-name";
 import StorageData from "../types/storage-data";
 import WeatherData from "../types/weather-data";
-import { geolocation } from "geolocation";
 
 // API key for OpenWeatherMap.
 let apiKey: string | null = null;
@@ -31,7 +31,7 @@ export function initialize(): void {
   getWeather().catch((error) => {
     console.log("Failed to fetch weather: ", error);
   });
-  setInterval(getWeather, 1000 * 60 * 15);
+  setInterval(getWeather, 15 * 60 * 1000);
 }
 
 // Handles a settings change from the phone.
@@ -87,7 +87,8 @@ export const getWeather = async (): Promise<void> => {
     },
     (error: PositionError) => {
       console.log(error.message);
-    }
+    },
+    { timeout: 60 * 1000 }
   );
 };
 
