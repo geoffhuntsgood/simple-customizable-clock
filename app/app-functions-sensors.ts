@@ -17,7 +17,7 @@ export const setDateAndTime = (dateDisplay: TextElement, clockDisplay: TextEleme
 
   let hours: number = preferences.clockDisplay === "12h" ? now.getHours() % 12 || 12 : now.getHours();
   let minutes: number = now.getMinutes();
-  clockDisplay.text = `${hours}:${minutes < 10 ? `0${minutes}` : minutes}`;
+  clockDisplay.text = minutes < 10 ? `${hours}:0${minutes}` : `${hours}:${minutes}`;
 };
 
 // Updates the heart rate display.
