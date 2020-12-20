@@ -26,7 +26,7 @@ export const initialize = (callback: Function): void => {
 
   // Adds settings change hook
   peerSocket.onmessage = (event: MessageEvent) => {
-    console.debug("Receiving message: " + JSON.stringify(event.data));
+    console.log("Receiving message: " + JSON.stringify(event.data));
     onMessage(event);
   };
 
