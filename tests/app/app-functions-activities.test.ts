@@ -1,3 +1,4 @@
+import * as functions from "../../app/app-functions";
 import * as activityFunctions from "../../app/app-functions-activities";
 import { ActivityName } from "../../types/activity-name";
 import { defaultArc, defaultText } from "../mocks/document.mock";
@@ -93,21 +94,21 @@ test("Returns distance as miles or kilometers, based on user preference", () => 
 
 // placeActivities()
 test("Does not place any activity when activityList length is 0", () => {
-  let placeItemSpy = jest.spyOn(activityFunctions, "placeItem");
+  let placeItemSpy = jest.spyOn(functions, "placeItem");
   activityFunctions.placeActivities([]);
   expect(placeItemSpy).not.toHaveBeenCalled();
 });
 
 // placeActivities()
 test("Does not place any activity when activityList length is too long", () => {
-  let placeItemSpy = jest.spyOn(activityFunctions, "placeItem");
+  let placeItemSpy = jest.spyOn(functions, "placeItem");
   activityFunctions.placeActivities(["", "", "", "", "", ""]);
   expect(placeItemSpy).not.toHaveBeenCalled();
 });
 
 // Spies on individual calls to placeItem() in placeActivities().
 const trackPlaceActivities = (activities: string[], xValues: number[]) => {
-  let placeItemSpy = jest.spyOn(activityFunctions, "placeItem");
+  let placeItemSpy = jest.spyOn(functions, "placeItem");
   activityFunctions.placeActivities(activities);
   // Default height/width is 300x300
   activities.forEach((act: string, index: number) => {
