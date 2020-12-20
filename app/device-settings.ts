@@ -6,7 +6,7 @@ import { ActivityName } from "../types/activity-name";
 import SettingsData from "../types/settings-data";
 import StorageData from "../types/storage-data";
 import WeatherData from "../types/weather-data";
-import { getUseCelsius } from "./app-functions-settings";
+import { getUseCelsius, setUseCelsius } from "./app-functions-settings";
 
 const SETTINGS_TYPE = "cbor";
 const SETTINGS_FILE = "settings.cbor";
@@ -26,6 +26,7 @@ export const initialize = (callback: Function): void => {
 
   // Adds settings change hook
   peerSocket.onmessage = (event: MessageEvent) => {
+    console.debug("Receiving message: " + JSON.stringify(event.data));
     onMessage(event);
   };
 
@@ -61,6 +62,7 @@ export const onMessage = (event: MessageEvent): void => {
       break;
     case "useCelsius":
       settings.useCelsius = data.value;
+      setUseCelsius(data.value);
       populateWeather(lastRetrievedWeather);
       break;
     default:
@@ -77,7 +79,7 @@ export const loadSettings = (): SettingsData => {
   if (fs.existsSync(SETTINGS_FILE)) {
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   } else {
-    console.warn(`${SETTINGS_FILE} does not exist. Writing a new one.`);
+    console.log(`${SETTINGS_FILE} does not exist. Writing a new one.`);
     fs.writeFileSync(SETTINGS_FILE, new SettingsData(), SETTINGS_TYPE);
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   }
@@ -94,7 +96,7 @@ export const toggleOrder = (show: boolean, name: ActivityName, activityOrder: st
 
 // Function that retrieves weather data and populates the clock face accordingly.
 export const populateWeather = (weather: WeatherData | null): void => {
-  if (weather !== null) {
+  if (weather) {
     weatherDisplay.text = getUseCelsius()
         ? `${Math.floor(weather.celsius)}&deg;`
         : `${Math.floor(weather.fahrenheit)}&deg;`;

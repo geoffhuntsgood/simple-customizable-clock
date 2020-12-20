@@ -16,6 +16,10 @@ export const getUseCelsius = (): boolean => {
   return useCelsius;
 };
 
+export const setUseCelsius = (celsius: boolean): void => {
+  useCelsius = celsius;
+};
+
 // Sets x/y coordinates for an activity item.
 export function placeItem(name: string, x: number, y: number): void {
   let arc = document.getElementById(`${name}Arc`) as ArcElement;

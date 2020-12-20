@@ -14,7 +14,7 @@ test("Loads existing settings file", () => {
 
 // loadSettings()
 test("Writes a new settings file and loads from it", () => {
-  let consoleSpy = jest.spyOn(console, "warn");
+  let consoleSpy = jest.spyOn(console, "log");
   let notExpectedData = new SettingsData();
   notExpectedData.batteryColor = "green";
   fs.setSettingsData(notExpectedData);
