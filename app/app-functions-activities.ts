@@ -3,6 +3,7 @@ import document from "document";
 import { goals, today } from "user-activity";
 import { units } from "user-settings";
 import { ActivityName } from "../types/activity-name";
+import { placeItem } from "./app-functions";
 
 // Provides the list of activity names, ignoring elevation for devices without a barometer.
 export const getActivityNames = (): string[] => {
@@ -96,19 +97,3 @@ export function placeActivities(activityList: string[]): void {
       break;
   }
 }
-
-// Sets x/y coordinates for an activity item.
-const placeItem = (name: string, x: number, y: number): void => {
-  let arc = document.getElementById(`${name}Arc`) as ArcElement;
-  let icon = document.getElementById(`${name}Icon`) as ImageElement;
-  let text = document.getElementById(`${name}Text`) as TextElement;
-  arc.style.display = "inline";
-  icon.style.display = "inline";
-  text.style.display = "inline";
-  arc.x = x - 30;
-  arc.y = y - 30;
-  icon.x = x - 15;
-  icon.y = y - 15;
-  text.x = x - 2;
-  text.y = y + 55;
-};

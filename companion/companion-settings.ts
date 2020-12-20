@@ -94,7 +94,6 @@ export const getWeather = async (): Promise<void> => {
 
 peerSocket.onopen = () => {
   if (inFlights.length > 0) {
-    console.log("Sending in-flight requests to device...");
     sendInFlights();
   }
 };

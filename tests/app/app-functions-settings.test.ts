@@ -15,6 +15,12 @@ test("Retrieves the current useCelsius value", () => {
   expect(celsius).toBeFalsy();
 });
 
+// setUseCelsius()
+test("Updates the useCelsius value", () => {
+  settingsFunctions.setUseCelsius(true);
+  expect(settingsFunctions.getUseCelsius()).toBeTruthy();
+});
+
 // initializeSettings()
 // TODO: fill in test cases for settings initialization
 test("Initializes settings with default values", () => {

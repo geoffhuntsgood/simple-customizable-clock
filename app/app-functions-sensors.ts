@@ -37,7 +37,6 @@ export const startHeartMonitoring = (heartDisplay: TextElement) => {
 
     // If display is off or device is off-wrist, deactivate heart readings
     display.onchange = () => {
-      console.log(bodySensor.present);
       display.on ? bodySensor.start() : bodySensor.stop();
       display.on && bodySensor.present ? heartSensor.start() : heartSensor.stop();
     };
