@@ -17,7 +17,7 @@ test("Sets date and time displays correctly", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1607913488);
   sensorFunctions.setDateAndTime(dateDisplay, clockDisplay);
   expect(dateDisplay.text).toBe("Mon, Jan 19, 1970");
-  //expect(clockDisplay.text).toBe("9:38");
+  expect(clockDisplay.text).toBe("9:38");
 });
 
 // setDateAndTime()
@@ -25,7 +25,7 @@ test("Sets date and time displays correctly with zero-padding", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1605913488);
   sensorFunctions.setDateAndTime(dateDisplay, clockDisplay);
   expect(dateDisplay.text).toBe("Mon, Jan 19, 1970");
- // expect(clockDisplay.text).toBe("9:05");
+  expect(clockDisplay.text).toBe("9:05");
 });
 
 // setDateAndTime()
