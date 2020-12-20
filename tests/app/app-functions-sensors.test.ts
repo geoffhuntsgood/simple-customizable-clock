@@ -34,7 +34,7 @@ test("Sets date and time displays correctly for 24-hour clock", () => {
   preferences.clockDisplay = "24h";
   sensorFunctions.setDateAndTime(dateDisplay, clockDisplay);
   expect(dateDisplay.text).toBe("Mon, Jan 19, 1970");
-  //expect(clockDisplay.text).toBe("14:38");
+  expect(clockDisplay.text).toBe("14:38");
 });
 
 // startHeartMonitoring()
