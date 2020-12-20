@@ -1,9 +1,10 @@
 import clock from "clock";
 import document from "document";
 import { battery, charger } from "power";
+import { updateActivities } from "./app-functions-activities";
+import { setDateAndTime, startHeartMonitoring, updateChargeDisplay } from "./app-functions-sensors";
+import { initializeSettings } from "./app-functions-settings";
 import * as settings from "./device-settings";
-import * as funcs from "./app-functions";
-import WeatherData from "../types/weather-data";
 
 // Elements that are frequently referred to.
 const heartDisplay = document.getElementById("heartDisplay") as TextElement;
@@ -17,17 +18,17 @@ const startUp = (): void => {
   clock.granularity = "seconds";
 
   // Initialize heart rate monitoring
-  funcs.startHeartMonitoring(heartDisplay);
+  startHeartMonitoring(heartDisplay);
 
   // Initialize and monitor battery percentage changes
-  funcs.updateChargeDisplay(batteryDisplay);
+  updateChargeDisplay(batteryDisplay);
 
   battery.onchange = () => {
-    funcs.updateChargeDisplay(batteryDisplay);
+    updateChargeDisplay(batteryDisplay);
   };
 
   charger.onchange = () => {
-    funcs.updateChargeDisplay(batteryDisplay);
+    updateChargeDisplay(batteryDisplay);
   };
 };
 startUp();
@@ -39,11 +40,13 @@ clock.ontick = () => {
 // Updates time, date and activity progress based on clock granularity.
 const setTicks = (): void => {
   // Update date and time every tick
-  funcs.setDateAndTime(dateDisplay, clockDisplay);
+  if (dateDisplay && clockDisplay) {
+    setDateAndTime(dateDisplay, clockDisplay);
+  }
 
   // Update activity progress every tick
-  funcs.updateActivities();
+  updateActivities();
 };
 
 // Initializes settings for the app.
-settings.initialize(funcs.initializeSettings);
+settings.initialize(initializeSettings);

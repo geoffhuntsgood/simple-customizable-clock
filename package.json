@@ -45,7 +45,7 @@
     "io-ts": "^2.2.10",
     "jest": "^26.6.1",
     "prettier": "^2.2.1",
-    "ts-jest": "^26.4.3"
+    "ts-jest": "^26.4.4"
   },
   "scripts": {
     "build": "npx fitbit-build",
@@ -58,5 +58,24 @@
     "jsxBracketSameLine": true,
     "printWidth": 120,
     "trailingComma": "none"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "appbit": "<rootDir>/tests/mocks/appbit.mock.ts",
+      "barometer": "<rootDir>/tests/mocks/barometer.mock.ts",
+      "body-presence": "<rootDir>/tests/mocks/body-presence.mock.ts",
+      "display": "<rootDir>/tests/mocks/display.mock.ts",
+      "document": "<rootDir>/tests/mocks/document.mock.ts",
+      "fs": "<rootDir>/tests/mocks/fs.mock.ts",
+      "heart-rate": "<rootDir>/tests/mocks/heart-rate.mock.ts",
+      "messaging": "<rootDir>/tests/mocks/messaging.mock.ts",
+      "power": "<rootDir>/tests/mocks/power.mock.ts",
+      "user-activity": "<rootDir>/tests/mocks/user-activity.mock.ts",
+      "user-profile": "<rootDir>/tests/mocks/user-profile.mock.ts",
+      "user-settings": "<rootDir>/tests/mocks/user-settings.mock.ts"
+    }
   }
 }
