@@ -1,4 +1,4 @@
-export default class TestElement {
+export class TestElement {
   text = "";
   x = 0;
   y = 0;

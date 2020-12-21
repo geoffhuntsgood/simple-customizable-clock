@@ -1,4 +1,4 @@
-import TestElement, { TestArcElement, TestRectElement } from "./test-element";
+import { TestArcElement, TestElement, TestRectElement } from "./test-element";
 
 export const defaultArc = new TestArcElement();
 export const defaultIcon = new TestElement();

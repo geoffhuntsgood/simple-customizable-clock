@@ -4,7 +4,7 @@ import { BodyPresenceSensor, setPresent } from "../mocks/body-presence.mock";
 import { display } from "../mocks/display.mock";
 import { HeartRateSensor } from "../mocks/heart-rate.mock";
 import { battery, charger } from "../mocks/power.mock";
-import TestElement from "../mocks/test-element";
+import { TestElement } from "../mocks/test-element";
 import { preferences } from "../mocks/user-settings.mock";
 
 let dateDisplay = new TestElement() as TextElement;
