@@ -37,13 +37,10 @@
   "devDependencies": {
     "@fitbit/sdk": "^4.1.0",
     "@fitbit/sdk-cli": "^1.7.3",
-    "@types/jest": "^26.0.15",
     "@types/node": "^14.14.6",
     "fitbit-sdk-types": "^5.0.0",
-    "fitbit-weather": "^0.2.2",
-    "fitbit-weather-types": "0.0.3",
     "io-ts": "^2.2.10",
-    "jest": "^26.6.1",
+    "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "ts-jest": "^26.4.4"
   },
