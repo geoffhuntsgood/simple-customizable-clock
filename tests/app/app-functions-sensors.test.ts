@@ -16,8 +16,6 @@ let batteryDisplay = new TestElement() as TextElement;
 test("Sets date and time displays correctly", () => {
   jest.spyOn(Date, "now").mockImplementation(() => 1607913488);
   sensorFunctions.setDateAndTime(dateDisplay, clockDisplay);
-  let test = new Date(Date.now());
-  console.log(test.getMonth(), test.getDate(), test.getHours(), test.getMinutes());
   expect(dateDisplay.text).toBe("Mon, Jan 19, 1970");
   expect(clockDisplay.text).toBe("9:38");
 });
