@@ -98,8 +98,8 @@ export const toggleOrder = (show: boolean, name: ActivityName, activityOrder: st
 export const populateWeather = (weather: WeatherData | null): void => {
   if (weather) {
     weatherDisplay.text = getUseCelsius()
-        ? `${Math.floor(weather.celsius)}&deg;`
-        : `${Math.floor(weather.fahrenheit)}&deg;`;
+      ? `${Math.floor(weather.celsius)}&deg;`
+      : `${Math.floor(weather.fahrenheit)}&deg;`;
     weatherIcon.href = getConditionIconPath(weather.conditionCode, weather.daytime);
   } else {
     weatherDisplay.text = "--&deg;";

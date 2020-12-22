@@ -1,7 +1,3 @@
-export class MessageEvent {
+export class MessageEvent {}
 
-}
-
-export const peerSocket = {
-
-};
+export const peerSocket = {};
