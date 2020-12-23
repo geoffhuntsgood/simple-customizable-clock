@@ -11,6 +11,8 @@ export default class SettingsData {
 
   baseHeartRateShow: boolean = false;
   useCelsius: boolean = false;
+  showSeconds: boolean = false;
+  colorLabels: boolean = false;
 
   activityOrder: string[] = getActivityNames();
 

@@ -5,6 +5,7 @@ import { getActivityNames, placeActivities, updateActivities } from "./app-funct
 
 let baseHeartRateShow = false;
 let useCelsius = false;
+let showSeconds = false;
 
 // Returns the current base heart rate value.
 export const getBaseHeartRate = (): boolean => {
@@ -16,8 +17,14 @@ export const getUseCelsius = (): boolean => {
   return useCelsius;
 };
 
+// Sets the current use Celsius value.
 export const setUseCelsius = (celsius: boolean): void => {
   useCelsius = celsius;
+};
+
+// Returns the current show seconds value.
+export const getShowSeconds = (): boolean => {
+  return showSeconds;
 };
 
 // Initializes settings data for the app.
@@ -28,6 +35,7 @@ export const initializeSettings = (data: SettingsData): void => {
 
   baseHeartRateShow = data.baseHeartRateShow;
   useCelsius = data.useCelsius;
+  showSeconds = data.showSeconds;
 
   (document.getElementById("background") as RectElement).style.fill = data.backgroundColor;
   (document.getElementById("clockDisplay") as TextElement).style.fill = data.timeColor;
@@ -48,6 +56,7 @@ export const initializeSettings = (data: SettingsData): void => {
       let activityColor: string = data[`${act}Color`];
       arc.style.fill = activityColor;
       icon.style.fill = activityColor;
+      data.colorLabels ? text.style.fill = activityColor : text.style.fill = "white";
     } else {
       // Remove activity from the clock face
       arc.style.display = "none";

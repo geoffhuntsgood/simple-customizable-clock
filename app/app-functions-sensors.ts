@@ -1,14 +1,16 @@
 import { me as appbit } from "appbit";
 import { BodyPresenceSensor } from "body-presence";
 import { display } from "display";
+import document from "document";
 import { HeartRateSensor } from "heart-rate";
 import { battery, charger } from "power";
 import { user } from "user-profile";
 import { preferences } from "user-settings";
-import { getBaseHeartRate } from "./app-functions-settings";
+import { getBaseHeartRate, getShowSeconds } from "./app-functions-settings";
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const root = document.getElementById("root") as RectElement;
 
 // Sets date and time text on the device.
 export const setDateAndTime = (dateDisplay: TextElement, clockDisplay: TextElement): void => {
@@ -17,7 +19,19 @@ export const setDateAndTime = (dateDisplay: TextElement, clockDisplay: TextEleme
 
   let hours: number = preferences.clockDisplay === "12h" ? now.getHours() % 12 || 12 : now.getHours();
   let minutes: number = now.getMinutes();
-  clockDisplay.text = minutes < 10 ? `${hours}:0${minutes}` : `${hours}:${minutes}`;
+  let secondsString: string = "";
+  if (getShowSeconds()) {
+    let seconds: number = now.getSeconds();
+    secondsString = seconds < 10 ? `:0${seconds}` : `:${seconds}`;
+    clockDisplay.textAnchor = "start";
+    clockDisplay.x = hours.toString().length === 2 ? 8 : 32;
+    clockDisplay.style.fontSize = 70;
+  } else {
+    clockDisplay.textAnchor = "middle";
+    clockDisplay.x = root.width / 2;
+    clockDisplay.style.fontSize = 100;
+  }
+  clockDisplay.text = minutes < 10 ? `${hours}:0${minutes}${secondsString}` : `${hours}:${minutes}${secondsString}`;
 };
 
 // Updates the heart rate display.

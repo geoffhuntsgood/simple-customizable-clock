@@ -45,9 +45,8 @@
 }
 
 #clockDisplay {
-  font-size: 100;
   font-family: System-Bold;
-  text-length: 5;
+  text-length: 8;
   text-anchor: middle;
   x: 50%;
   y: 55%;
