@@ -34,9 +34,20 @@ const options = [
 ];
 
 // Returns a label based on the state of a setting.
-const toggleLabel = (settings: SettingsComponentProps, key: string, trueLabel: string, falseLabel: string) => {
+const toggleLabel = (settings: SettingsComponentProps, key: string, trueLabel: string, falseLabel: string): boolean => {
   return settings.settingsStorage.getItem(key) === "true" ? trueLabel : falseLabel;
 };
+
+// Resets settings storage and initializes show props to true.
+const reset = (settings: SettingsComponentProps): void => {
+  let storage = settings.settingsStorage;
+  storage.clear();
+  storage.setItem("activeZoneMinutesShow", "true");
+  storage.setItem("caloriesShow", "true");
+  storage.setItem("distanceShow", "true");
+  storage.setItem("elevationGainShow", "true");
+  storage.setItem("stepsShow", "true");
+}
 
 // Renders the settings page on the phone.
 registerSettingsPage((settings: SettingsComponentProps) => (
@@ -69,6 +80,9 @@ registerSettingsPage((settings: SettingsComponentProps) => (
         <Toggle
             settingsKey="colorLabels"
             label={`Display activity values in ${toggleLabel(settings, "colorLabels", "their color", "white")}`}/>
+      </Section>
+      <Section title="Reset Settings to Default">
+        <Toggle settingsKey="resetSettings" label="Reset settings" onChange={() => reset(settings)} />
       </Section>
       <Section title="Color Settings">
         {options.map(([title, settingsKey]) => (

@@ -12,6 +12,7 @@ const SETTINGS_TYPE = "cbor";
 const SETTINGS_FILE = "settings.cbor";
 
 let settings: SettingsData;
+let callbackRef: Function;
 let onsettingschange: Function;
 let lastRetrievedWeather: WeatherData;
 
@@ -22,6 +23,7 @@ const weatherDisplay = document.getElementById("weatherDisplay") as TextElement;
 export const initialize = (callback: Function): void => {
   settings = loadSettings();
   onsettingschange = callback;
+  callbackRef = callback;
   onsettingschange(settings);
 
   // Adds settings change hook
@@ -39,6 +41,9 @@ export const onMessage = (event: MessageEvent): void => {
   let data: StorageData = event.data;
   switch (data.key) {
     case null:
+      break;
+    case "resetSettings":
+      resetSettings();
       break;
     case "weather":
       let weather: WeatherData = JSON.parse(data.value);
@@ -83,6 +88,12 @@ export const loadSettings = (): SettingsData => {
     fs.writeFileSync(SETTINGS_FILE, new SettingsData(), SETTINGS_TYPE);
     return fs.readFileSync(SETTINGS_FILE, SETTINGS_TYPE);
   }
+};
+
+// Forces a reset of the settings file.
+export const resetSettings = (): void => {
+  fs.unlinkSync(SETTINGS_FILE);
+  initialize(callbackRef);
 };
 
 // Toggles user activity order.
